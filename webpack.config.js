@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const {resolve} = require('path');
 module.exports = {
-    entry: './index.js',
+    entry: resolve(__dirname, 'src', 'index.js'),
     output: {
         path: resolve(__dirname, 'build'),
         filename: 'build.js'
@@ -22,7 +22,20 @@ module.exports = {
                         loader: "html-loader"
                     }
                 ]
-            }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|jpg|gif)$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {},
+                    },
+                ],
+            },
         ]
     },
     plugins: [
@@ -30,5 +43,8 @@ module.exports = {
             template: resolve(__dirname, 'public', 'index.html'),
             filename: "./index.html"
         })
-    ]
+    ], 
+    resolve: {
+        extensions: ['.js', '.jsx', '.css']
+    }
 };
