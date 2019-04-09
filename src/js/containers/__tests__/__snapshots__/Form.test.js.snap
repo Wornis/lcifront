@@ -16,35 +16,3 @@ exports[`Test Form component renders correctly 1`] = `
   }
 />
 `;
-
-exports[`Test FormCalendar component renders correctly 1`] = `
-<div
-  className="picker"
-  style={
-    Object {
-      "marginBottom": 15,
-      "width": 240,
-    }
-  }
->
-  <pure(AccessTimeIcon)
-    style={
-      Object {
-        "marginTop": 20,
-      }
-    }
-  />
-  <ForwardRef
-    animateYearScrolling={true}
-    format="d MMM yyyy"
-    label="Date"
-    onChange={[Function]}
-    style={
-      Object {
-        "marginLeft": 10,
-      }
-    }
-    value="2019-03-25"
-  />
-</div>
-`;
