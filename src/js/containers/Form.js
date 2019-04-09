@@ -147,7 +147,7 @@ class Form extends React.Component {
             if (!value) // If value field is empty
                 return this.setState({[selectedKey]: value, totalValue: ''});
         }
-        this.setState({[selectedKey]: value});
+        this.setState({[selectedKey]: value}); //The new value is stated even if it incorrect
         if (errored) {
             return this.setState({totalValue: ''});
         }
@@ -243,6 +243,7 @@ class Form extends React.Component {
                             this.state.submitted ?
                                 <CircularProgress className={classes.progress} /> :
                                 <Button
+                                    id='submit'
                                     type="button"
                                     variant="contained"
                                     color="primary"
