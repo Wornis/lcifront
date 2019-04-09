@@ -11,15 +11,15 @@ import MyLocationIcon from '@material-ui/icons/MyLocation';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import TextField from '@material-ui/core/es/TextField/TextField';
-import FormControl from '@material-ui/core/es/FormControl/FormControl';
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel';
-import Select from '@material-ui/core/es/Select/Select';
-import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
+import TextField from '@material-ui/core';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from '../components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
-import {CircularProgress} from '@material-ui/core/es/index';
 
 const styles = theme => ({
     main: {

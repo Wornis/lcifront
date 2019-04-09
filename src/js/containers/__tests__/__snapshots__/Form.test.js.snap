@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test Form component renders correctly 1`] = `
+<Form
+  classes={
+    Object {
+      "avatar": "Form-avatar-3",
+      "form": "Form-form-4",
+      "formControl": "Form-formControl-7",
+      "inputColor": "Form-inputColor-8",
+      "main": "Form-main-1",
+      "paper": "Form-paper-2",
+      "submit": "Form-submit-5",
+      "textField": "Form-textField-6",
+    }
+  }
+/>
+`;
+
 exports[`Test FormCalendar component renders correctly 1`] = `
 <div
   className="picker"

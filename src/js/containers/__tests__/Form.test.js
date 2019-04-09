@@ -6,7 +6,7 @@ import Form from '../Form';
 
 const testSelectedDate = '2019-03-25';
 
-const getFormWrapper = () => createShallow(<Form/>);
+const getFormWrapper = () => createShallow()(<Form/>);
 
 const getFormCalenderWrapper = () => createShallow()(
     <FormCalendar
