@@ -1,5 +1,5 @@
 import React from 'react';
-import { createShallow, createMount } from '@material-ui/core/test-utils';
+import {createShallow, createMount} from '@material-ui/core/test-utils';
 import Form from '../Form';
 import format from "date-fns/format";
 
@@ -38,7 +38,7 @@ describe('Test Form component', () => {
         const wrapper = getFormWrapper();
         const id = 'espValue';
         const value = '10.21';
-        wrapper.find(`#${id}`).simulate('change', {target: { id, value }});
+        wrapper.find(`#${id}`).simulate('change', {target: {id, value}});
         expect(wrapper.state().errors[id]).toBeFalsy();
         expect(wrapper.state()[id]).toEqual(value);
     });
@@ -47,9 +47,102 @@ describe('Test Form component', () => {
         const wrapper = getFormWrapper();
         const id = 'trValue';
         const value = '10.215'; // Only 2 numbers accepted after '.'
-        wrapper.find(`#${id}`).simulate('change', {target: { id, value }});
+        wrapper.find(`#${id}`).simulate('change', {target: {id, value}});
         expect(wrapper.state().errors[id]).toBeTruthy();
         expect(wrapper.state()[id]).toEqual(value);
+    });
+
+    it('Successfully handle onChangeValue with correct value when before value was errored', () => {
+        const wrapper = getFormWrapper();
+        const id = 'espValue';
+        wrapper.find(`#${id}`).simulate('change', {target: {id, value: '10.251'}}); //Incorrect value
+        expect(wrapper.state().errors[id]).toBeTruthy();
+        wrapper.find(`#${id}`).simulate('change', {target: {id, value: '10.25'}});
+        expect(wrapper.state().errors[id]).toBeFalsy();
+    });
+
+    it('Successfully handle onChangeValue with empty value when before value was errored', () => {
+        const wrapper = getFormWrapper();
+        wrapper.find('#espValue').simulate('change', {target: {id: 'espValue', value: '10.25'}});
+        wrapper.find('#trValue').simulate('change', {target: {id: 'trValue', value: '10.25'}});
+        wrapper.find('#cbValue').simulate('change', {target: {id: 'cbValue', value: ''}}); //Empty value
+        wrapper.find('#submit').simulate('click');
+        const exceptedState = {
+            ...initialState,
+            espValue: '10.25',
+            trValue: '10.25',
+            cbValue: '',
+            totalValue: '20.50',
+            errors: {
+                espValue: false,
+                trValue: false,
+                cbValue: true
+            }
+
+        };
+        expect(wrapper.state()).toEqual(exceptedState);
+    });
+
+    it('Successfully handle submit with correct values', () => {
+        const wrapper = getFormWrapper();
+        const value = '10.25';
+        wrapper.find('#espValue').simulate('change', {target: {id: 'espValue', value}});
+        wrapper.find('#trValue').simulate('change', {target: {id: 'trValue', value}});
+        wrapper.find('#cbValue').simulate('change', {target: {id: 'cbValue', value}});
+        wrapper.find('#submit').simulate('click');
+        const exceptedState = {
+            ...initialState,
+            espValue: '10.25',
+            trValue: '10.25',
+            cbValue: '10.25',
+            totalValue: '30.75',
+            submitted: true
+        };
+        expect(wrapper.state()).toEqual(exceptedState);
+    });
+
+    it('Successfully handle submit with an incorrect value', () => {
+        const wrapper = getFormWrapper();
+        wrapper.find('#espValue').simulate('change', {target: {id: 'espValue', value: '10.25'}});
+        wrapper.find('#trValue').simulate('change', {target: {id: 'trValue', value: '10.25'}});
+        wrapper.find('#cbValue').simulate('change', {target: {id: 'cbValue', value: '10.251'}}); //Incorrect value
+        wrapper.find('#submit').simulate('click');
+        const exceptedState = {
+            ...initialState,
+            espValue: '10.25',
+            trValue: '10.25',
+            cbValue: '10.251',
+            totalValue: '',
+            errors: {
+                espValue: false,
+                trValue: false,
+                cbValue: true
+            }
+
+        };
+        expect(wrapper.state()).toEqual(exceptedState);
+    });
+
+    it('Successfully handle submit with an empty value', () => {
+        const wrapper = getFormWrapper();
+        wrapper.find('#espValue').simulate('change', {target: {id: 'espValue', value: '10.25'}});
+        wrapper.find('#trValue').simulate('change', {target: {id: 'trValue', value: '10.25'}});
+        wrapper.find('#cbValue').simulate('change', {target: {id: 'cbValue', value: ''}}); //Empty value
+        wrapper.find('#submit').simulate('click');
+        const exceptedState = {
+            ...initialState,
+            espValue: '10.25',
+            trValue: '10.25',
+            cbValue: '',
+            totalValue: '20.50',
+            errors: {
+                espValue: false,
+                trValue: false,
+                cbValue: true
+            }
+
+        };
+        expect(wrapper.state()).toEqual(exceptedState);
     });
 
 });

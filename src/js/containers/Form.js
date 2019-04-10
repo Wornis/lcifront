@@ -122,7 +122,7 @@ class Form extends React.Component {
             const afterDotValue = value.substring(value.indexOf('.') + 1);
             return (isNaN(value) || afterDotValue.length > 2);
         }
-        return isNaN(value);
+        return isNaN(value); //If value is empty, return false
     };
 
     getNewTotal = (selectedKey, value) => {
@@ -144,8 +144,6 @@ class Form extends React.Component {
             this.setState((prevState) => ({errors: {...prevState.errors, [selectedKey]: true}}));
         } else if (this.state.errors[selectedKey]) {
             this.setState((prevState) => ({errors: {...prevState.errors, [selectedKey]: false}}));
-            if (!value) // If value field is empty
-                return this.setState({[selectedKey]: value, totalValue: ''});
         }
         this.setState({[selectedKey]: value}); //The new value is stated even if it incorrect
         if (errored) {
