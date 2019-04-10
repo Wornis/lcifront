@@ -49,6 +49,7 @@ exports[`Test Form component Renders correctly 1`] = `
             Emplacement
           </WithStyles(WithFormControlContext(InputLabel))>
           <WithStyles(WithFormControlContext(Select))
+            id="select_form"
             inputProps={
               Object {
                 "id": "select-place",
@@ -197,7 +198,7 @@ exports[`Test Form component Renders correctly 1`] = `
       <WithStyles(Button)
         className="Form-submit-5"
         color="primary"
-        id="submit"
+        id="submit_form"
         onClick={[Function]}
         type="button"
         variant="contained"

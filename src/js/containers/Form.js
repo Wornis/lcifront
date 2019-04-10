@@ -179,6 +179,7 @@ class Form extends React.Component {
                             <FormControl className={classes.formControl}>
                                 <InputLabel htmlFor="select-place">Emplacement</InputLabel>
                                 <Select
+                                    id='select_form'
                                     value={this.state.place}
                                     inputProps={{name: 'place', id: 'select-place'}}
                                     onChange={(e) => this.setState({place: e.target.value})}
@@ -241,7 +242,7 @@ class Form extends React.Component {
                             this.state.submitted ?
                                 <CircularProgress className={classes.progress} /> :
                                 <Button
-                                    id='submit'
+                                    id='submit_form'
                                     type="button"
                                     variant="contained"
                                     color="primary"
