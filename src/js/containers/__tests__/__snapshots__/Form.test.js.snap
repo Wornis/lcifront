@@ -24,7 +24,7 @@ exports[`Test Form component Renders correctly 1`] = `
     >
       <FormCalendar
         onChangeDate={[Function]}
-        selectedDate="2019-04-10"
+        selectedDate="2019-04-13"
       />
       <div
         style={

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test FormCalendar component Renders correctly 1`] = `
+<div
+  className="picker"
+  style={
+    Object {
+      "marginBottom": 15,
+      "width": 240,
+    }
+  }
+>
+  <pure(AccessTimeIcon)
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  />
+  <ForwardRef
+    animateYearScrolling={true}
+    format="d MMM yyyy"
+    id="formCalendarDatePicker"
+    label="Date"
+    onChange={[Function]}
+    style={
+      Object {
+        "marginLeft": 10,
+      }
+    }
+    value="2018-04-25"
+  />
+</div>
+`;
