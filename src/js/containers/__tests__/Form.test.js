@@ -26,6 +26,7 @@ const initialState = {
 describe('Test Form component', () => {
     it('Renders correctly', () => {
         const wrapper = getFormWrapper();
+        wrapper.setState({dateValue: '2019-04-13'}); // Same selectedDate than snapshot
         expect(wrapper).toMatchSnapshot();
     });
 
