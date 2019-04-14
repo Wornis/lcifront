@@ -47,7 +47,14 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx', '.css'],
         alias: {
-            'react-dom': '@hot-loader/react-dom'
+            'react-dom': '@hot-loader/react-dom',
+            Actions: resolve(__dirname, 'src/js/actions'),
+            Components: resolve(__dirname, 'src/js/components'),
+            Constants: resolve(__dirname, 'src/js/constants'),
+            Containers: resolve(__dirname, 'src/js/containers'),
+            Reducers: resolve(__dirname, 'src/js/reducers'),
+            Redux: resolve(__dirname, 'src/js/redux'),
+            Utils: resolve(__dirname, 'src/js/utils'),
         }
     }
 };

@@ -17,7 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import FormCalendar from '../components/Form/FormCalendar';
+import FormCalendar from 'Components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
 

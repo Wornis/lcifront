@@ -1,4 +1,4 @@
-import {PING, PONG} from '../constants/ActionTypes';
+import {PING, PONG} from 'Constants/ActionTypes';
 import {delay, mapTo} from 'rxjs/internal/operators/index';
 import {ofType} from 'redux-observable';
 

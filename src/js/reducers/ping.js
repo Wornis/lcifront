@@ -1,4 +1,4 @@
-import {PING, PONG} from '../constants/ActionTypes';
+import {PING, PONG} from 'Constants/ActionTypes';
 
 const initialState = {
     isPinging: false
