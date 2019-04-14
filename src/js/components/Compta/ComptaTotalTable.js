@@ -37,7 +37,7 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-class ComptaTable extends React.Component {
+class ComptaTotalTable extends React.Component {
     render() {
         const {classes} = this.props;
         return (
@@ -45,13 +45,12 @@ class ComptaTable extends React.Component {
                 <Table padding={"none"}>
                     <TableHead>
                         <TableRow>
-                            <TableCell style={{...style.cell}}>Date</TableCell>
+                            <TableCell style={{...style.cell}}>Emplacement</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>Especes</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>Tickets Restaurants</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>Cartes Bancaires</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Total</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Emplacement</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Mise à jour</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Nb services</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -77,8 +76,8 @@ class ComptaTable extends React.Component {
     }
 }
 
-ComptaTable.propTypes = {
+ComptaTotalTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ComptaTable);
+export default withStyles(styles)(ComptaTotalTable);
