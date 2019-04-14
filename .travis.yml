@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+script:
+  - yarn test
+deploy:
+  skip_cleanup: true  #tells Travis not to delete build files.
+  github_token: $github_token # sets the GitHub token. We used an environment variable to avoid exposing our token to the public.
+  local_dir: build  #tells Travis to only take the files from the /build directory for deployment
+  on:
+    branch: master #tells Travis when to trigger deployment. We only want to deploy when
+                   #we push to the master branch of the repository.

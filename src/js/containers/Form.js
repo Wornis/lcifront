@@ -11,15 +11,15 @@ import MyLocationIcon from '@material-ui/icons/MyLocation';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import TextField from '@material-ui/core/es/TextField/TextField';
-import FormControl from '@material-ui/core/es/FormControl/FormControl';
-import InputLabel from '@material-ui/core/es/InputLabel/InputLabel';
-import Select from '@material-ui/core/es/Select/Select';
-import MenuItem from '@material-ui/core/es/MenuItem/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from '../components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
-import {CircularProgress} from '@material-ui/core/es/index';
 
 const styles = theme => ({
     main: {
@@ -122,7 +122,7 @@ class Form extends React.Component {
             const afterDotValue = value.substring(value.indexOf('.') + 1);
             return (isNaN(value) || afterDotValue.length > 2);
         }
-        return isNaN(value);
+        return isNaN(value); //If value is empty, return false
     };
 
     getNewTotal = (selectedKey, value) => {
@@ -144,10 +144,8 @@ class Form extends React.Component {
             this.setState((prevState) => ({errors: {...prevState.errors, [selectedKey]: true}}));
         } else if (this.state.errors[selectedKey]) {
             this.setState((prevState) => ({errors: {...prevState.errors, [selectedKey]: false}}));
-            if (!value) // If value field is empty
-                return this.setState({[selectedKey]: value, totalValue: ''});
         }
-        this.setState({[selectedKey]: value});
+        this.setState({[selectedKey]: value}); //The new value is stated even if it incorrect
         if (errored) {
             return this.setState({totalValue: ''});
         }
@@ -181,6 +179,7 @@ class Form extends React.Component {
                             <FormControl className={classes.formControl}>
                                 <InputLabel htmlFor="select-place">Emplacement</InputLabel>
                                 <Select
+                                    id='select_form'
                                     value={this.state.place}
                                     inputProps={{name: 'place', id: 'select-place'}}
                                     onChange={(e) => this.setState({place: e.target.value})}
@@ -243,6 +242,7 @@ class Form extends React.Component {
                             this.state.submitted ?
                                 <CircularProgress className={classes.progress} /> :
                                 <Button
+                                    id='submit_form'
                                     type="button"
                                     variant="contained"
                                     color="primary"

@@ -1,33 +1,211 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test FormCalendar component renders correctly 1`] = `
-<div
-  className="picker"
-  style={
-    Object {
-      "marginBottom": 15,
-      "width": 240,
-    }
-  }
+exports[`Test Form component Renders correctly 1`] = `
+<main
+  className="Form-main-1"
 >
-  <pure(AccessTimeIcon)
-    style={
-      Object {
-        "marginTop": 20,
-      }
-    }
-  />
-  <ForwardRef
-    animateYearScrolling={true}
-    format="d MMM yyyy"
-    label="Date"
-    onChange={[Function]}
-    style={
-      Object {
-        "marginLeft": 10,
-      }
-    }
-    value="2019-03-25"
-  />
-</div>
+  <WithStyles(Paper)
+    className="Form-paper-2"
+  >
+    <WithStyles(Avatar)
+      className="Form-avatar-3"
+    >
+      <pure(CreateIcon) />
+    </WithStyles(Avatar)>
+    <WithStyles(Typography)
+      component="h1"
+      variant="h5"
+    >
+      Formulaire
+    </WithStyles(Typography)>
+    <form
+      autoComplete="off"
+      className="Form-form-4"
+    >
+      <FormCalendar
+        onChangeDate={[Function]}
+        selectedDate="2019-04-13"
+      />
+      <div
+        style={
+          Object {
+            "marginBottom": 20,
+          }
+        }
+      >
+        <pure(MyLocationIcon)
+          style={
+            Object {
+              "marginTop": 30,
+            }
+          }
+        />
+        <WithStyles(FormControl)
+          className="Form-formControl-7"
+        >
+          <WithStyles(WithFormControlContext(InputLabel))
+            htmlFor="select-place"
+          >
+            Emplacement
+          </WithStyles(WithFormControlContext(InputLabel))>
+          <WithStyles(WithFormControlContext(Select))
+            id="select_form"
+            inputProps={
+              Object {
+                "id": "select-place",
+                "name": "place",
+              }
+            }
+            onChange={[Function]}
+            value="none"
+          >
+            <WithStyles(MenuItem)
+              value="none"
+            >
+              None
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              value={10}
+            >
+              Ten
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              value={20}
+            >
+              Twenty
+            </WithStyles(MenuItem)>
+            <WithStyles(MenuItem)
+              value={30}
+            >
+              Thirty
+            </WithStyles(MenuItem)>
+          </WithStyles(WithFormControlContext(Select))>
+        </WithStyles(FormControl)>
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <pure(EuroSymbolIcon)
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        />
+        <TextField
+          className="Form-textField-6"
+          error={false}
+          helperText=""
+          id="espValue"
+          label="Espèces"
+          onChange={[Function]}
+          required={false}
+          select={false}
+          value=""
+          variant="standard"
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <pure(MoneyIcon)
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        />
+        <TextField
+          className="Form-textField-6"
+          error={false}
+          helperText=""
+          id="trValue"
+          label="Tickets Restaurants"
+          onChange={[Function]}
+          required={false}
+          select={false}
+          value=""
+          variant="standard"
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <pure(CreditCardIcon)
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        />
+        <TextField
+          className="Form-textField-6"
+          error={false}
+          helperText=""
+          id="cbValue"
+          label="Cartes Bancaires"
+          onChange={[Function]}
+          required={false}
+          select={false}
+          value=""
+          variant="standard"
+        />
+      </div>
+      <div
+        style={
+          Object {
+            "marginBottom": 30,
+          }
+        }
+      >
+        <pure(MonetizationOnIcon)
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        />
+        <TextField
+          InputProps={
+            Object {
+              "classes": Object {
+                "input": "Form-inputColor-8",
+              },
+            }
+          }
+          className="Form-textField-6"
+          disabled={true}
+          id="totalValue"
+          label="Total"
+          required={false}
+          select={false}
+          value=""
+          variant="standard"
+        />
+      </div>
+      <WithStyles(Button)
+        className="Form-submit-5"
+        color="primary"
+        id="submit_form"
+        onClick={[Function]}
+        type="button"
+        variant="contained"
+      >
+        Valider
+      </WithStyles(Button)>
+    </form>
+  </WithStyles(Paper)>
+</main>
 `;
