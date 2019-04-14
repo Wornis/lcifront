@@ -4,7 +4,8 @@ module.exports = {
     entry: resolve(__dirname, 'src', 'index.js'),
     output: {
         path: resolve(__dirname, 'build'),
-        filename: 'build.js'
+        filename: 'build.js',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -56,5 +57,8 @@ module.exports = {
             Redux: resolve(__dirname, 'src/js/redux'),
             Utils: resolve(__dirname, 'src/js/utils'),
         }
+    },
+    devServer: {
+        historyApiFallback: true,
     }
 };
