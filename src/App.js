@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route, Switch, BrowserRouter} from 'react-router-dom';
-import Compta from './js/containers/Compta';
-import NotFound from './js/containers/NotFound';
-import Form from './js/containers/Form';
-import Layout from './js/containers/Layout';
-import Stats from './js/containers/Stats';
-import Calendar from './js/containers/Calendar';
-import Store from './js/redux/configureStore';
+import Compta from 'Containers/Compta';
+import NotFound from 'Containers/NotFound';
+import Form from 'Containers/Form';
+import Layout from 'Containers/Layout';
+import Stats from 'Containers/Stats';
+import Calendar from 'Containers/Calendar';
+import Store from 'Redux/configureStore';
 import {Provider} from 'react-redux';
 import {createMuiTheme} from '@material-ui/core/styles';
 import MuiThemeProvider from '@material-ui/core/es/styles/MuiThemeProvider';
@@ -15,7 +15,7 @@ import red from '@material-ui/core/es/colors/red';
 import {MuiPickersUtilsProvider} from 'material-ui-pickers';
 import frLocale from 'date-fns/locale/fr';
 import '../src/index.css';
-import LocalizedUtils from './js/utils/LocalizedUtils';
+import LocalizedUtils from 'Utils/LocalizedUtils';
 import { hot } from 'react-hot-loader/root'
 
 const theme = createMuiTheme({

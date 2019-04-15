@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import {ListItemIcon} from '@material-ui/core';
 import {fade} from '@material-ui/core/styles/colorManipulator';
 import {Link, withRouter} from 'react-router-dom';
-import menuItems from '../constants/menuItems';
+import menuItems from 'Constants/menuItems';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
