@@ -44,7 +44,7 @@ module.exports = {
             template: resolve(__dirname, 'public', 'index.html'),
             filename: "./index.html"
         })
-    ], 
+    ],
     resolve: {
         extensions: ['.js', '.jsx', '.css'],
         alias: {
@@ -60,5 +60,5 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: true,
-    }
+    },
 };

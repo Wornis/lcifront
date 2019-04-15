@@ -1,6 +1,6 @@
 import React from 'react';
 import {createShallow} from '@material-ui/core/test-utils';
-import Form from '../Form';
+import Form from 'Containers/Form';
 import format from "date-fns/format";
 
 /* The dive()method returns the rendered non-DOM child of the current wrapper.

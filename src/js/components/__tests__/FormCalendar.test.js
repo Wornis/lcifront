@@ -1,6 +1,6 @@
 import React from 'react';
 import {createShallow} from '@material-ui/core/test-utils';
-import FormCalendar from '../Form/FormCalendar';
+import FormCalendar from 'Components/Form/FormCalendar';
 import format from "date-fns/format";
 
 describe('Test FormCalendar component', () => {
