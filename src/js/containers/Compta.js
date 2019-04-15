@@ -20,7 +20,9 @@ class Compta extends React.Component {
     render() {
         return (
             <div>
-                <AppBar position="static">
+                <AppBar position="static"
+                        style={{width: 'fit-content', margin: 'auto', marginTop: 25}}
+                >
                     <Tabs
                         value={this.state.tabValue}
                         onChange={this.handleChange}
