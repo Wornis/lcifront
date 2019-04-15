@@ -66,13 +66,13 @@
       "<rootDir>/setupTests.js"
     ],
     "moduleNameMapper": {
-      "Components(.*)$": "<rootDir>/src/js/components/$1",
-      "Containers(.*)$": "<rootDir>/src/js/containers/$1",
-      "Actions(.*)$": "<rootDir>/src/js/actions/$1",
-      "Constants(.*)$": "<rootDir>/src/js/constants/$1",
-      "Reducers(.*)$": "<rootDir>/src/js/reducers/$1",
-      "Redux(.*)$": "<rootDir>/src/js/redux/$1",
-      "Utils": "<rootDir>/src/js/utils/$1"
+      "^Components(.*)$": "<rootDir>/src/js/components/$1",
+      "^Containers(.*)$": "<rootDir>/src/js/containers/$1",
+      "^Actions(.*)$": "<rootDir>/src/js/actions/$1",
+      "^Constants(.*)$": "<rootDir>/src/js/constants/$1",
+      "^Reducers(.*)$": "<rootDir>/src/js/reducers/$1",
+      "^Redux(.*)$": "<rootDir>/src/js/redux/$1",
+      "^Utils(.*)$": "<rootDir>/src/js/utils/$1"
     }
   }
 }
