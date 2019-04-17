@@ -10,3 +10,6 @@
 ## Tests (Coverage)
 `yarn test -- --coverage`
 
+
+**git fetch -p**\
+*Will update the local database of remote branches.*
