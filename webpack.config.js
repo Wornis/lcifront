@@ -7,6 +7,8 @@ module.exports = {
         filename: 'build.js',
         publicPath: '/'
     },
+    cache: true,
+    devtool: 'eval',
     module: {
         rules: [
             {
