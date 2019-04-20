@@ -20,6 +20,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from 'Components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
+import {bindActionCreators} from "redux";
+import { connect } from 'react-redux';
+import {sendFormDatas} from "Actions/form";
 
 const styles = theme => ({
     main: {
@@ -88,7 +91,6 @@ class Form extends React.Component {
             totalValue: '',
             dateValue: format(new Date(), 'yyyy-MM-dd'),
             place: 'none',
-            submitted: false,
             errors: {
                 espValue: false,
                 trValue: false,
@@ -113,7 +115,9 @@ class Form extends React.Component {
     handleSubmit = () => {
         const boolErrMoneys = this.checkIfErrOnMoneyFields();
         if (!boolErrMoneys && this.state.place && isValid(new Date(this.state.dateValue))) {
-            return this.setState({submitted: true});
+            const {espValue, trValue, cbValue, dateValue, place} = this.state;
+            const datas = {espValue, trValue, cbValue, dateValue, place};
+            this.props.sendFormDatas(datas);
         }
     };
 
@@ -239,7 +243,7 @@ class Form extends React.Component {
                             />
                         </div>
                         {
-                            this.state.submitted ?
+                            this.props.isLoading ?
                                 <CircularProgress className={classes.progress} /> :
                                 <Button
                                     id='submit_form'
@@ -263,4 +267,10 @@ Form.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Form);
+const mapStateToProps = state => {
+    return {isLoading: state.form.isLoading}
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));

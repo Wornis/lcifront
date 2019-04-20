@@ -1,2 +1,2 @@
-export const PING = 'PING';
-export const PONG = 'PONG';
+export const FORM_SUBMITTED = 'FORM_SUBMITTED';
+export const FORM_RESPONSE_RECEIVED = 'FORM_RESPONSE_RECEIVED';

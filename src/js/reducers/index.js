@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import ping from './ping.js';
+import form from 'Reducers/form';
 import {combineEpics} from 'redux-observable';
-import {pingEpic} from 'Actions/ping';
+import {formEpic} from 'Actions/form';
 
 export const rootReducer = combineReducers({
-    ping
+    form
 });
 
 export const rootEpic = combineEpics(
-    pingEpic
+    formEpic
 );
