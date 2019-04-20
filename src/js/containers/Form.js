@@ -116,7 +116,7 @@ class Form extends React.Component {
 
     cleanForm = (nextProps) => {
         if (nextProps.clearFields) {
-            return this.setState({...{initialState}})
+            return this.setState(initialState)
         }
     };
 
@@ -184,7 +184,6 @@ class Form extends React.Component {
         errorValue ? 'La valeur saisie est incorrecte' : '';
 
     render() {
-        console.log(this.props);
         const {classes} = this.props;
         return (
             <main className={classes.main}>
@@ -197,12 +196,13 @@ class Form extends React.Component {
                     </Typography>
                     <form className={classes.form} autoComplete='off'>
                         <FormCalendar
+                            disabled={this.props.isLoading}
                             selectedDate={this.state.dateValue}
                             onChangeDate={this.onChangeDate.bind(this)}
                         />
                         <div style={{marginBottom: 20}}>
                             <MyLocationIcon style={{marginTop: 30}}/>
-                            <FormControl className={classes.formControl}>
+                            <FormControl className={classes.formControl} disabled={this.props.isLoading}>
                                 <InputLabel htmlFor="select-place">Emplacement</InputLabel>
                                 <Select
                                     id='select_form'
@@ -227,6 +227,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.espValue}
                                 helperText={this.getHelperText(this.state.errors.espValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>
@@ -239,6 +240,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.trValue}
                                 helperText={this.getHelperText(this.state.errors.trValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>
@@ -251,6 +253,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.cbValue}
                                 helperText={this.getHelperText(this.state.errors.cbValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>

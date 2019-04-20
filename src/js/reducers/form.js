@@ -1,4 +1,4 @@
-import {FORM_SUBMITTED, FORM_RESPONSE_RECEIVED, FORM_CLEAR} from 'Constants/ActionTypes';
+import {FORM_SUBMITTED, FORM_RESPONSE_RECEIVED, FORM_INIT} from 'Constants/ActionTypes';
 
 const initialState = {
     isLoading: false,
@@ -10,15 +10,15 @@ const formReducer = (state = initialState, action) => {
             return {isLoading: true};
         case FORM_RESPONSE_RECEIVED: {
             const datasInserted = action.status === 200;
-            return {isLoading: false, datasInserted, error: action.error};
-        }
-        case FORM_CLEAR: {
             return {
-                ...initialState,
-                clearFields: state.error === undefined
+                isLoading: false,
+                datasInserted,
+                error: action.error,
+                clearFields: action.error === undefined
             };
         }
-
+        case FORM_INIT:
+            return {...initialState};
         default:
             return state;
     }
