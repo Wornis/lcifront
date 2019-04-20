@@ -23,6 +23,7 @@ import isValid from 'date-fns/isValid';
 import {bindActionCreators} from "redux";
 import { connect } from 'react-redux';
 import {sendFormDatas} from "Actions/form";
+import {toast} from 'react-toastify';
 
 const styles = theme => ({
     main: {
@@ -81,23 +82,43 @@ const style = {
     }
 };
 
+const initialState = {
+    espValue: '',
+    trValue: '',
+    cbValue: '',
+    totalValue: '',
+    dateValue: format(new Date(), 'yyyy-MM-dd'),
+    place: 'none',
+    errors: {
+        espValue: false,
+        trValue: false,
+        cbValue: false
+    }
+};
+
 class Form extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            espValue: '',
-            trValue: '',
-            cbValue: '',
-            totalValue: '',
-            dateValue: format(new Date(), 'yyyy-MM-dd'),
-            place: 'none',
-            errors: {
-                espValue: false,
-                trValue: false,
-                cbValue: false
-            }
-        };
+        this.state = {...initialState}
     }
+
+    componentWillReceiveProps(nextProps, nextContext){
+        this.triggerNeededToasts(nextProps);
+        this.cleanForm(nextProps);
+    }
+
+    triggerNeededToasts = (nextProps) => {
+        if (nextProps.datasInserted)
+            return toast.success('🚀 Données ajoutées.');
+        if (nextProps.datasInserted === false)
+            return toast.error(`❌ ${nextProps.error}`)
+    };
+
+    cleanForm = (nextProps) => {
+        if (nextProps.clearFields) {
+            return this.setState({...{initialState}})
+        }
+    };
 
     checkIfErrOnMoneyFields = () => {
         const keys = ['espValue', 'trValue', 'cbValue'];
@@ -163,6 +184,7 @@ class Form extends React.Component {
         errorValue ? 'La valeur saisie est incorrecte' : '';
 
     render() {
+        console.log(this.props);
         const {classes} = this.props;
         return (
             <main className={classes.main}>
@@ -264,12 +286,10 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-    return {isLoading: state.form.isLoading}
-};
+const mapStateToProps = state => ({...state.form});
 
 const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas}, dispatch);
 
