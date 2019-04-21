@@ -1,10 +1,11 @@
 import {FORM_SUBMITTED, FORM_RESPONSE_RECEIVED, FORM_INIT} from 'Constants/ActionTypes';
 import {from} from 'rxjs';
-import {mergeMap, map, delay, endWith} from 'rxjs/operators';
+import {mergeMap, map, endWith} from 'rxjs/operators';
 import {ofType} from 'redux-observable';
+import config from 'Config';
 
 const api = {
-    sendDatas: datas => fetch('http://localhost:3002/compta/add/', {
+    sendDatas: datas => fetch(`${config.engine.host}/compta/add/`, {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -16,7 +17,7 @@ const api = {
         .catch(() => ({status: 500, error: 'Impossible d\' inserer les donnees !'}))
 };
 
-export const formEpic = action$ => action$.pipe(
+export const formSubmitEpic = action$ => action$.pipe(
     ofType(FORM_SUBMITTED),
     mergeMap(action =>
         from(api.sendDatas(action.datas)).pipe(

@@ -1,5 +1,6 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const {resolve} = require('path');
+
 module.exports = {
     entry: resolve(__dirname, 'src', 'index.js'),
     output: {
@@ -61,4 +62,9 @@ module.exports = {
     devServer: {
         historyApiFallback: true,
     },
+    externals: {
+        'Config': JSON.stringify(process.env.NODE_ENV === 'production' ?
+            require('./config_production.json') :
+            require('./config_development.json'))
+    }
 };
