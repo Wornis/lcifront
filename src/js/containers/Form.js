@@ -20,7 +20,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from 'Components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
-import {bindActionCreators} from "redux";
+import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {sendFormDatas} from "Actions/form";
 import {toast} from 'react-toastify';
@@ -88,7 +88,7 @@ const initialState = {
     cbValue: '',
     totalValue: '',
     dateValue: format(new Date(), 'yyyy-MM-dd'),
-    place: 'none',
+    place: '',
     errors: {
         espValue: false,
         trValue: false,
@@ -99,10 +99,10 @@ const initialState = {
 class Form extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {...initialState}
+        this.state = {...initialState};
     }
 
-    componentWillReceiveProps(nextProps, nextContext){
+    componentWillReceiveProps(nextProps) {
         this.triggerNeededToasts(nextProps);
         this.cleanForm(nextProps);
     }
@@ -111,12 +111,12 @@ class Form extends React.Component {
         if (nextProps.datasInserted)
             return toast.success('🚀 Données ajoutées.');
         if (nextProps.datasInserted === false)
-            return toast.error(`❌ ${nextProps.error}`)
+            return toast.error(`❌ ${nextProps.error}`);
     };
 
     cleanForm = (nextProps) => {
         if (nextProps.clearFields) {
-            return this.setState(initialState)
+            return this.setState(initialState);
         }
     };
 
@@ -210,10 +210,12 @@ class Form extends React.Component {
                                     inputProps={{name: 'place', id: 'select-place'}}
                                     onChange={(e) => this.setState({place: e.target.value})}
                                 >
-                                    <MenuItem value='none'>None</MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value=''>Choisissez un emplacement</MenuItem>
+                                    {
+                                        this.props.emplacements.map(place =>
+                                            <MenuItem value={place.id}>{place.libelle}</MenuItem>
+                                        )
+                                    }
                                 </Select>
                             </FormControl>
                         </div>
@@ -292,7 +294,10 @@ Form.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({...state.form});
+const mapStateToProps = state => ({
+    ...state.form,
+    emplacements: state.emplacement.emplacements
+});
 
 const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas}, dispatch);
 
