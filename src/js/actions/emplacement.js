@@ -9,7 +9,7 @@ const api = {
     fetchEmplacements: () => fetch(`${config.engine.host}/emplacement/`)
         .then(response => processResponse(response))
         .then(value => ({value}))
-        .catch((error) => ({error}))
+        .catch(error => ({error}))
 };
 
 export const emplacementEpic = action$ => action$.pipe(

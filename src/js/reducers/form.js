@@ -1,4 +1,4 @@
-import {FORM_SUBMITTED, FORM_RESPONSE_RECEIVED, FORM_INIT} from 'Constants/ActionTypes';
+import {FORM_SUBMIT, FORM_SUBMIT_SUCCESS, FORM_INIT, FORM_SUBMIT_ERROR} from 'Constants/ActionTypes';
 
 const initialState = {
     isLoading: false,
@@ -6,17 +6,19 @@ const initialState = {
 
 const formReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FORM_SUBMITTED:
+        case FORM_SUBMIT:
             return {isLoading: true};
-        case FORM_RESPONSE_RECEIVED: {
-            const datasInserted = action.status === 200;
+        case FORM_SUBMIT_SUCCESS:
             return {
                 isLoading: false,
-                datasInserted,
-                error: action.error,
-                clearFields: action.error === undefined
+                datasInserted: true,
             };
-        }
+        case FORM_SUBMIT_ERROR:
+            return {
+                isLoading: false,
+                datasInserted: false,
+                error: action.error
+            };
         case FORM_INIT:
             return {...initialState};
         default:

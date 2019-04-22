@@ -1,8 +1,16 @@
-import {FORM_SUBMITTED, FORM_RESPONSE_RECEIVED, FORM_INIT} from 'Constants/ActionTypes';
+import {
+    FORM_SUBMIT,
+    FORM_SUBMIT_SUCCESS,
+    FORM_INIT,
+    FORM_SUBMIT_ERROR
+} from 'Constants/ActionTypes';
 import {from} from 'rxjs';
 import {mergeMap, map, endWith} from 'rxjs/operators';
 import {ofType} from 'redux-observable';
 import config from 'Config';
+import processResponse from 'Utils/processResponse';
+import {catchError} from "rxjs/operators/index";
+import {of} from "rxjs/index";
 
 const api = {
     sendDatas: datas => fetch(`${config.engine.host}/compta/add/`, {
@@ -13,18 +21,25 @@ const api = {
         method: 'POST',
         body: JSON.stringify(datas)
     })
-        .then(response => ({status: response.status}))
-        .catch(() => ({status: 500, error: 'Impossible d\' inserer les donnees !'}))
+        .then(response => processResponse(response))
+        .catch(error => ({error}))
 };
 
 export const formSubmitEpic = action$ => action$.pipe(
-    ofType(FORM_SUBMITTED),
+    ofType(FORM_SUBMIT),
     mergeMap(action =>
         from(api.sendDatas(action.datas)).pipe(
-            map(({status, error}) => ({type: FORM_RESPONSE_RECEIVED, status, error})),
+            map(({error}) => {
+                if (error) throw error;
+                return ({type: FORM_SUBMIT_SUCCESS});
+            }),
+            map(action => action),
+            catchError(error => of(error).pipe(
+                map((error) => ({type: FORM_SUBMIT_ERROR, error})),
+            )),
             endWith(({type: FORM_INIT}))
         )
     ),
 );
 
-export const sendFormDatas = (datas) => ({type: FORM_SUBMITTED, datas});
+export const sendFormDatas = (datas) => ({type: FORM_SUBMIT, datas});

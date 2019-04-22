@@ -115,7 +115,7 @@ class Form extends React.Component {
     };
 
     cleanForm = (nextProps) => {
-        if (nextProps.clearFields) {
+        if (nextProps.datasInserted) {
             return this.setState(initialState);
         }
     };
@@ -213,7 +213,7 @@ class Form extends React.Component {
                                     <MenuItem value=''>Choisissez un emplacement</MenuItem>
                                     {
                                         this.props.emplacements.map(place =>
-                                            <MenuItem value={place.id}>{place.libelle}</MenuItem>
+                                            <MenuItem key={place.id} value={place.id}>{place.libelle}</MenuItem>
                                         )
                                     }
                                 </Select>
