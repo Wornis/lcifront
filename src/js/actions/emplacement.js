@@ -1,4 +1,6 @@
-import {EMPLACEMENT_FETCH, EMPLACEMENT_FETCH_ERROR, EMPLACEMENT_FETCH_SUCCESS, EMPLACEMENT_ERROR_CLEAN} from 'Constants/ActionTypes';
+import {EMPLACEMENT_FETCH, EMPLACEMENT_FETCH_ERROR,
+    EMPLACEMENT_FETCH_SUCCESS, EMPLACEMENT_ERROR_CLEAN
+} from 'Constants/ActionTypes';
 import config from 'Config';
 import {from, of} from 'rxjs';
 import {mergeMap, map, catchError, endWith} from 'rxjs/operators';
