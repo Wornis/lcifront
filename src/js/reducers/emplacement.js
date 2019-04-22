@@ -7,9 +7,15 @@ const initialState = {
 const emplacementReducer = (state = initialState, action) => {
     switch (action.type) {
         case EMPLACEMENT_FETCH_SUCCESS:
-            return {emplacements: action.emplacements};
+            return {
+                ...state,
+                emplacements: action.emplacements
+            };
         case EMPLACEMENT_FETCH_ERROR:
-            return {error: action.error};
+            return {
+                ...state,
+                error: action.error
+            };
         case EMPLACEMENT_ERROR_CLEAN:
             return {...initialState};
         default:
