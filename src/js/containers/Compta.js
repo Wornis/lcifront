@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -35,7 +35,7 @@ class Compta extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <AppBar position="static"
                     style={{width: 'fit-content', margin: 'auto', marginTop: 25}}
                 >
@@ -48,9 +48,9 @@ class Compta extends React.Component {
                         <Tab label="Les totaux"/>
                     </Tabs>
                 </AppBar>
-                {this.state.tabValue === 0 && <ComptaTable datas={this.props.datas}/>}
-                {this.state.tabValue === 1 && <ComptaTotalTable/>}
-            </div>
+                {this.state.tabValue === 0 && <ComptaTable recettes={this.props.recettes}/>}
+                {this.state.tabValue === 1 && <ComptaTotalTable totaux={this.props.totaux}/>}
+            </>
         );
     }
 }

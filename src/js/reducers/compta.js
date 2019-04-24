@@ -1,7 +1,8 @@
 import {COMPTA_FETCH_SUCCESS, COMPTA_FETCH_ERROR, COMPTA_ERROR_CLEAN} from 'Constants/ActionTypes';
 
 const initialState = {
-    datas: [],
+    recettes:[],
+    totaux:[]
 };
 
 const comptaReducer = (state = initialState, action) => {
@@ -9,7 +10,8 @@ const comptaReducer = (state = initialState, action) => {
         case COMPTA_FETCH_SUCCESS:
             return {
                 ...state,
-                datas: action.datas
+                recettes: action.datas.recettes,
+                totaux: action.datas.totaux
             };
         case COMPTA_FETCH_ERROR:
             return {

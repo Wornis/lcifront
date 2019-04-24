@@ -16,7 +16,6 @@ const styles = theme => ({
         margin: 'auto'
     }
 });
-
 const style = {
     cell: {
         textAlign:'center',
@@ -25,21 +24,10 @@ const style = {
     }
 };
 
-const createData = (name, calories, fat, carbs, protein) => {
-    return {name, calories, fat, carbs, protein};
-};
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 class ComptaTotalTable extends React.Component {
     render() {
         const {classes} = this.props;
+        const {emplacements, total} = this.props.totaux;
         return (
             <Paper className={classes.root}>
                 <Table padding={"none"}>
@@ -54,19 +42,20 @@ class ComptaTotalTable extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {emplacements.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell
                                     component="th"
                                     scope="row"
                                     style={{textAlign:'center'}}
                                 >
-                                    {row.name}
+                                    {row.libelle}
                                 </TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{row.calories}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{row.fat}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{row.carbs}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{row.protein}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{Math.round(row.esp * 100) / 100}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{Math.round(row.tr * 100) / 100}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{Math.round(row.cb * 100) / 100}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{Math.round(row.total * 100) / 100}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{row.nbServices}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -78,6 +67,7 @@ class ComptaTotalTable extends React.Component {
 
 ComptaTotalTable.propTypes = {
     classes: PropTypes.object.isRequired,
+    totaux: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ComptaTotalTable);

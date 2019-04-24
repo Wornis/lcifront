@@ -28,7 +28,7 @@ const style = {
 
 class ComptaTable extends React.Component {
     render() {
-        const {classes, datas} = this.props;
+        const {classes, recettes} = this.props;
         return (
             <Paper className={classes.root}>
                 <Table padding={"none"}>
@@ -43,12 +43,12 @@ class ComptaTable extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {datas.map((data, index) => (
+                        {recettes.map((data, index) => (
                             <TableRow key={index}>
                                 <TableCell
                                     component="th"
                                     scope="row"
-                                    style={{textAlign:'center'}}
+                                    style={{...style.cell, textAlign:'center'}}
                                 >
                                     {format(new Date(data.laDate), 'dd/MM/yyyy')}
                                 </TableCell>
@@ -67,7 +67,7 @@ class ComptaTable extends React.Component {
 }
 
 ComptaTable.propTypes = {
-    datas: PropTypes.array.isRequired,
+    recettes: PropTypes.array.isRequired,
     classes: PropTypes.object.isRequired,
 };
 
