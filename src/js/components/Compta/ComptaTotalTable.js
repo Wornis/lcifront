@@ -10,9 +10,8 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        width: '425px',
         marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
         margin: 'auto'
     }
 });
@@ -42,12 +41,26 @@ class ComptaTotalTable extends React.Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        <TableRow key={'totalMonth'} style={{border: 'outset'}}>
+                            <TableCell
+                                component="th"
+                                scope="row"
+                                style={{...style.cell, textAlign:'center'}}
+                            >
+                                TOTAL
+                            </TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{Math.round(total.esp * 100) / 100}</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{Math.round(total.tr * 100) / 100}</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{Math.round(total.cb * 100) / 100}</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{Math.round(total.total * 100) / 100}</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{total.nbServices}</TableCell>
+                        </TableRow>
                         {emplacements.map((row, index) => (
                             <TableRow key={index}>
                                 <TableCell
                                     component="th"
                                     scope="row"
-                                    style={{textAlign:'center'}}
+                                    style={{...style.cell, textAlign:'center'}}
                                 >
                                     {row.libelle}
                                 </TableCell>

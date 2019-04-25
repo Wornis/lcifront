@@ -2,7 +2,10 @@ import {COMPTA_FETCH_SUCCESS, COMPTA_FETCH_ERROR, COMPTA_ERROR_CLEAN} from 'Cons
 
 const initialState = {
     recettes:[],
-    totaux:[]
+    totaux:{
+        emplacements: [],
+        total: {}
+    }
 };
 
 const comptaReducer = (state = initialState, action) => {

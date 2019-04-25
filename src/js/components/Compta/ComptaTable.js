@@ -11,7 +11,7 @@ import format from "date-fns/format";
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        width: '425px',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: 'auto'
@@ -39,7 +39,7 @@ class ComptaTable extends React.Component {
                             <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>Tickets Restaurants</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>Cartes Bancaires</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Total</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Emplacement</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#DCEDFF'}}>Emplacement</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -56,7 +56,7 @@ class ComptaTable extends React.Component {
                                 <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{data.tr}</TableCell>
                                 <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{data.cb}</TableCell>
                                 <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{data.total}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{data.libelle}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#DCEDFF'}}>{data.libelle}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

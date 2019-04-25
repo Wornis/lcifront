@@ -210,7 +210,7 @@ class Form extends React.Component {
                                     inputProps={{name: 'place', id: 'select-place'}}
                                     onChange={(e) => this.setState({place: e.target.value})}
                                 >
-                                    <MenuItem value=''>Choisissez un emplacement</MenuItem>
+                                    <MenuItem value=''><em>Choisissez un emplacement</em></MenuItem>
                                     {
                                         this.props.emplacements.map(place =>
                                             <MenuItem key={place.id} value={place.id}>{place.libelle}</MenuItem>
