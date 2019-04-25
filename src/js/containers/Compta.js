@@ -36,7 +36,8 @@ class Compta extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchComptaDatas({month: 11, year: 2016});
+        const {month, year} = this.state;
+        this.props.fetchComptaDatas({month, year});
         window.addEventListener("resize", this.updateDimensions.bind(this));
     }
 
@@ -49,47 +50,60 @@ class Compta extends React.Component {
             return toast.error(`❌ ${nextProps.error}`);
     };
 
+    updateSelectedDate(e) {
+        const {value, name} = e.target;
+        return this.setState({[name]: value}, () => {
+            const {month, year} = this.state;
+            this.props.fetchComptaDatas({month, year});
+        });
+    }
+
     updateDimensions() {
-        const showTabsPage = window.innerWidth < 900;
+        const showTabsPage = window.innerWidth < 1100;
         if (this.state.showTabsPage !== showTabsPage)
             return this.setState({showTabsPage});
     }
 
-    render() {
+    renderComptaSingle = () => {
         const {recettes, totaux, classes} = this.props;
-        {
-            return (this.state.showTabsPage || window.innerWidth < 900)
-                ? <ComptaTabs recettes={recettes} totaux={totaux}/>
-                : (
-                    <div style={{display: 'flex'}}>
-                        <ComptaTable recettes={recettes}/>
-                        <FormControl className={classes.formControl} style={{marginTop: 25}}>
-                            <InputLabel htmlFor="select_month_compta">Mois :</InputLabel>
-                            <Select
-                                id='select_month_compta'
-                                value={this.state.month}
-                                inputProps={{name: 'month', id: 'select_month_compta'}}
-                                onChange={(e) => this.setState({month: e.target.value})}
-                            >
-                                {arrMonths.map((month, index) => <MenuItem value={index + 1}>{month}</MenuItem>)}
+        return (
+            <div style={{display: 'flex'}}>
+                <ComptaTable recettes={recettes}/>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <FormControl className={classes.formControl} style={{marginTop: 25}}>
+                        <InputLabel htmlFor="select_month_compta">Mois :</InputLabel>
+                        <Select
+                            id='select_month_compta'
+                            value={this.state.month}
+                            inputProps={{name: 'month', id: 'select_month_compta'}}
+                            onChange={this.updateSelectedDate.bind(this)}
+                        >
+                            {arrMonths.map((month, index) => <MenuItem value={index + 1}>{month}</MenuItem>)}
 
-                            </Select>
-                        </FormControl>
-                        <FormControl className={classes.formControl} style={{marginTop: 25}}>
-                            <InputLabel htmlFor="select_year_compta">Année :</InputLabel>
-                            <Select
-                                id='select_year_compta'
-                                value={this.state.year}
-                                inputProps={{name: 'year', id: 'select_year_compta'}}
-                                onChange={(e) => this.setState({year: e.target.value})}
-                            >
-                                {arrYears.map(year => <MenuItem value={year}>{year}</MenuItem>)}
-                            </Select>
-                        </FormControl>
-                        <ComptaTotalTable totaux={totaux}/>
-                    </div>
-                );
-        }
+                        </Select>
+                    </FormControl>
+                    <FormControl className={classes.formControl} style={{marginTop: 25}}>
+                        <InputLabel htmlFor="select_year_compta">Année :</InputLabel>
+                        <Select
+                            id='select_year_compta'
+                            value={this.state.year}
+                            inputProps={{name: 'year', id: 'select_year_compta'}}
+                            onChange={this.updateSelectedDate.bind(this)}
+                        >
+                            {arrYears.map(year => <MenuItem value={year}>{year}</MenuItem>)}
+                        </Select>
+                    </FormControl>
+                </div>
+                <ComptaTotalTable totaux={totaux}/>
+            </div>
+        );
+    };
+
+    render() {
+        const {recettes, totaux} = this.props;
+        return (this.state.showTabsPage || window.innerWidth < 1100)
+            ? <ComptaTabs recettes={recettes} totaux={totaux}/>
+            : this.renderComptaSingle();
     }
 }
 
