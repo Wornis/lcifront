@@ -11,6 +11,7 @@ import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
 import Select from "@material-ui/core/es/Select/Select";
 import MenuItem from "@material-ui/core/es/MenuItem/MenuItem";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {arrMonths, arrYears} from "Constants/dates";
 
 const styles = theme => ({
     formControl: {
@@ -18,11 +19,6 @@ const styles = theme => ({
         width: 200,
     }
 });
-
-const arrMonths = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-    'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-
-const arrYears = [2014, 2015, 2016, 2017, 2018, 2019];
 
 class Compta extends React.Component {
     constructor() {
@@ -101,8 +97,14 @@ class Compta extends React.Component {
 
     render() {
         const {recettes, totaux} = this.props;
+        const {month, year} = this.state;
         return (this.state.showTabsPage || window.innerWidth < 1100)
-            ? <ComptaTabs recettes={recettes} totaux={totaux}/>
+            ? <ComptaTabs
+                recettes={recettes}
+                totaux={totaux}
+                month={month}
+                year={year}
+            />
             : this.renderComptaSingle();
     }
 }
