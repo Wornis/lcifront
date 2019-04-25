@@ -18,10 +18,14 @@ export default class ComptaTabs extends React.Component {
         this.setState({tabValue});
 
     render() {
-        const {month, year} = this.props;
+        const {month, year, fetchComptaDatas} = this.props;
         return (
             <div style={{textAlign: 'center'}}>
-                <ComptaSelectDialog month={month} year={year}/>
+                <ComptaSelectDialog
+                    month={month}
+                    year={year}
+                    fetchComptaDatas={fetchComptaDatas}
+                />
                 <AppBar
                     position="static"
                     style={{width: 'fit-content', margin: 'auto'}}

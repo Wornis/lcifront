@@ -34,15 +34,16 @@ class ComptaSelectDialog extends React.Component {
         };
     }
 
-    handleChange = name => event => {
-        return this.setState({[name]: Number(event.target.value)}, () => {
-
-        });
-    };
+    handleChange = name => event => this.setState({[name]: Number(event.target.value)});
 
     handleClickOpen = () => this.setState({open: true});
 
-    handleClose = () => this.setState({open: false});
+    handleClose = valided => () => {
+        const {month, year} = this.state;
+        if (valided)
+            this.props.fetchComptaDatas({month, year});
+        return this.setState({open: false});
+    };
 
     render() {
         const {classes} = this.props;
@@ -65,7 +66,7 @@ class ComptaSelectDialog extends React.Component {
                                     onChange={this.handleChange('month')}
                                     input={<Input id="compta_dialog_month"/>}
                                 >
-                                    {arrMonths.map((month, index) => <MenuItem value={index + 1}>{month}</MenuItem>)}
+                                    {arrMonths.map((month, index) => <MenuItem key={index} value={index + 1}>{month}</MenuItem>)}
                                 </Select>
                             </FormControl>
                             <FormControl className={classes.formControl}>
@@ -75,16 +76,16 @@ class ComptaSelectDialog extends React.Component {
                                     onChange={this.handleChange('year')}
                                     input={<Input id="compta_dialog_year"/>}
                                 >
-                                    {arrYears.map(year => <MenuItem value={year}>{year}</MenuItem>)}
+                                    {arrYears.map((year, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         </form>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleClose(false)} color="primary">
                             Annuler
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleClose(true)} color="primary">
                             Valider
                         </Button>
                     </DialogActions>

@@ -74,7 +74,7 @@ class Compta extends React.Component {
                             inputProps={{name: 'month', id: 'select_month_compta'}}
                             onChange={this.updateSelectedDate.bind(this)}
                         >
-                            {arrMonths.map((month, index) => <MenuItem value={index + 1}>{month}</MenuItem>)}
+                            {arrMonths.map((month, index) => <MenuItem key={index} value={index + 1}>{month}</MenuItem>)}
 
                         </Select>
                     </FormControl>
@@ -86,7 +86,7 @@ class Compta extends React.Component {
                             inputProps={{name: 'year', id: 'select_year_compta'}}
                             onChange={this.updateSelectedDate.bind(this)}
                         >
-                            {arrYears.map(year => <MenuItem value={year}>{year}</MenuItem>)}
+                            {arrYears.map((year, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
                         </Select>
                     </FormControl>
                 </div>
@@ -96,7 +96,7 @@ class Compta extends React.Component {
     };
 
     render() {
-        const {recettes, totaux} = this.props;
+        const {recettes, totaux, fetchComptaDatas} = this.props;
         const {month, year} = this.state;
         return (this.state.showTabsPage || window.innerWidth < 1100)
             ? <ComptaTabs
@@ -104,6 +104,7 @@ class Compta extends React.Component {
                 totaux={totaux}
                 month={month}
                 year={year}
+                fetchComptaDatas={fetchComptaDatas}
             />
             : this.renderComptaSingle();
     }
