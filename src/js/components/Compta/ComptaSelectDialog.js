@@ -49,7 +49,13 @@ class ComptaSelectDialog extends React.Component {
         const {classes} = this.props;
         return (
             <div>
-                <Button onClick={this.handleClickOpen}>Changer mois | année</Button>
+                <Button
+                    variant="contained"
+                    onClick={this.handleClickOpen}
+                    color='primary'
+                >
+                    Changer mois | année
+                </Button>
                 <Dialog
                     disableBackdropClick
                     disableEscapeKeyDown
