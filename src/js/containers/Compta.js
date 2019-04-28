@@ -6,17 +6,17 @@ import {connect} from 'react-redux';
 import {fetchComptaDatas} from "Actions/compta";
 import {toast} from "react-toastify";
 import ComptaTabs from "Components/Compta/ComptaTabs";
-import FormControl from "@material-ui/core/es/FormControl/FormControl";
-import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
-import Select from "@material-ui/core/es/Select/Select";
-import MenuItem from "@material-ui/core/es/MenuItem/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {arrMonths, arrYears} from "Constants/dates";
 
 const styles = theme => ({
     formControl: {
         margin: theme.spacing.unit,
-        width: 200,
+        width: 112,
     }
 });
 

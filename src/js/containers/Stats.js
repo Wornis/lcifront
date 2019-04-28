@@ -4,8 +4,23 @@ import {connect} from "react-redux";
 import {fetchStatsOfYear} from "Actions/stats";
 import {bindActionCreators} from 'redux';
 import {toast} from "react-toastify";
-import {arrMonths} from "Constants/dates";
+import {arrMonths, arrYears} from "Constants/dates";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import withStyles from "@material-ui/core/styles/withStyles";
+import MenuItem from "@material-ui/core/MenuItem";
 
+const styles = theme => ({
+    formControl: {
+        margin: 'auto',
+        width: 70,
+        textAlign: 'center',
+        display: 'flex',
+    }
+});
+
+//TODO: Afficher graphique nbServices pour chaque mois de l'année sélectionnée
 class Stats extends React.Component {
     constructor(props) {
         super(props);
@@ -38,10 +53,27 @@ class Stats extends React.Component {
             return toast.error(`❌ ${nextProps.error}`);
     };
 
+    handleChangeDate = e => {
+        const {value} = e.target;
+        return this.setState({year: value}, () => this.props.fetchStatsOfYear(this.state.year));
+    };
+
     render() {
+        const {classes} = this.props;
         return (
             <div className='container'>
                 <div className='col-lg-12 col-md-12'>
+                    <FormControl className={classes.formControl} style={{marginTop: 25}}>
+                        <InputLabel htmlFor="select_year_compta">Année :</InputLabel>
+                        <Select
+                            id='select_year_compta'
+                            value={this.state.year}
+                            inputProps={{name: 'year', id: 'select_year_compta'}}
+                            onChange={this.handleChangeDate.bind(this)}
+                        >
+                            {arrYears.map((year, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
+                        </Select>
+                    </FormControl>
                     <h2 style={{textAlign: 'center'}}>Evolution du chiffre d'affaire sur l'année {this.state.year} </h2>
                     <BarChart
                         style={{background: 'oldlace', margin: 'auto'}}
@@ -67,4 +99,4 @@ const mapStateToProps = state => ({...state.stats});
 
 const mapDispatchToProps = dispatch => bindActionCreators({fetchStatsOfYear}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Stats);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Stats));
