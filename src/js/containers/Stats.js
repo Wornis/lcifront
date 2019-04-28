@@ -25,7 +25,7 @@ class Stats extends React.Component {
     }
 
     formatDatasYear = (nextProps) => {
-        if (nextProps.datasYear !== this.props.datasYear) {
+        if (nextProps.datasYear !== this.props.datasYear) { //datasYear updated from redux
             const datasYear = arrMonths.map((month, index) =>
                 ({...nextProps.datasYear[index], month: month.substring(0, 4)})
             );
