@@ -31,7 +31,7 @@ class Stats extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchStatsOfYear(2018);
+        this.props.fetchStatsOfYear(this.state.year);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -41,9 +41,16 @@ class Stats extends React.Component {
 
     formatDatasYear = (nextProps) => {
         if (nextProps.datasYear !== this.props.datasYear) { //datasYear updated from redux
-            const datasYear = arrMonths.map((month, index) =>
-                ({...nextProps.datasYear[index], month: month.substring(0, 4)})
-            );
+            const datasYear = arrMonths.map((month, index) => {
+                if (nextProps.datasYear[index]) {
+                    const dataMonth = {
+                        ...nextProps.datasYear[index],
+                        sumTotal: parseInt(nextProps.datasYear[index].sumTotal)
+                    };
+                    return {...dataMonth, month: month.substring(0, 4)};
+                } else
+                    return {month: month.substring(0, 4)};
+            });
             return this.setState({datasYear});
         }
     };
@@ -59,21 +66,22 @@ class Stats extends React.Component {
     };
 
     render() {
+        console.log(this.state.datasYear);
         const {classes} = this.props;
         return (
             <div className='container'>
+                <FormControl className={classes.formControl} style={{marginTop: 25}}>
+                    <InputLabel htmlFor="select_year_compta">Année :</InputLabel>
+                    <Select
+                        id='select_year_compta'
+                        value={this.state.year}
+                        inputProps={{name: 'year', id: 'select_year_compta'}}
+                        onChange={this.handleChangeDate.bind(this)}
+                    >
+                        {arrYears.map((year, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
+                    </Select>
+                </FormControl>
                 <div className='col-lg-12 col-md-12'>
-                    <FormControl className={classes.formControl} style={{marginTop: 25}}>
-                        <InputLabel htmlFor="select_year_compta">Année :</InputLabel>
-                        <Select
-                            id='select_year_compta'
-                            value={this.state.year}
-                            inputProps={{name: 'year', id: 'select_year_compta'}}
-                            onChange={this.handleChangeDate.bind(this)}
-                        >
-                            {arrYears.map((year, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
-                        </Select>
-                    </FormControl>
                     <h2 style={{textAlign: 'center'}}>Evolution du chiffre d'affaire sur l'année {this.state.year} </h2>
                     <BarChart
                         style={{background: 'oldlace', margin: 'auto'}}
@@ -84,10 +92,27 @@ class Stats extends React.Component {
                     >
                         <CartesianGrid strokeDasharray="3 3"/>
                         <XAxis dataKey="month"/>
-                        <YAxis/>
+                        <YAxis type="number" domain={[0, 45000]} />
                         <Tooltip/>
                         <Legend/>
-                        <Bar dataKey="sumTotal" fill="#8884d8"/>
+                        <Bar dataKey="sumTotal" fill="#8884d8" label={{fontSize: 12, fontWeight: 'bold'}}/>
+                    </BarChart>
+                </div>
+                <div className='col-lg-12 col-md-12' style={{marginTop: 25}}>
+                    <h2 style={{textAlign: 'center'}}>Total de services réalisés sur l'année {this.state.year} </h2>
+                    <BarChart
+                        style={{background: 'oldlace', margin: 'auto'}}
+                        width={650}
+                        height={300}
+                        data={this.state.datasYear}
+                        margin={{top: 5, right: 30, left: 20, bottom: 5}}
+                    >
+                        <CartesianGrid strokeDasharray="3 3"/>
+                        <XAxis dataKey="month"/>
+                        <YAxis type="number" domain={[0, 50]} />
+                        <Tooltip/>
+                        <Legend/>
+                        <Bar dataKey="nbServices" fill="#FFA500" label/>
                     </BarChart>
                 </div>
             </div>
