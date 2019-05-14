@@ -13,7 +13,8 @@ const statsReducer = (state = initialState, action) => {
         case STATS_FETCH_SUCCESS:
             return {
                 ...state,
-                datasYear: action.datasYear
+                datasYear: action.datasYear,
+                year: action.year
             };
         case STATS_FETCH_ERROR:
             return {

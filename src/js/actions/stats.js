@@ -18,7 +18,7 @@ export const statsEpic = action$ => action$.pipe(
         from(api.fetchStatsOfYear(year)).pipe(
             map(({error, value}) => {
                 if (error) throw error;
-                return {type: STATS_FETCH_SUCCESS, datasYear: value};
+                return {type: STATS_FETCH_SUCCESS, datasYear: value, year};
             }),
             catchError(error => of(error).pipe(
                 map((error) => ({type: STATS_FETCH_ERROR, error})),
