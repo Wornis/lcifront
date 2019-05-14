@@ -9,6 +9,7 @@ import AppBar from "@material-ui/core/AppBar/AppBar";
 import Tabs from "@material-ui/core/Tabs/Tabs";
 import Tab from "@material-ui/core/Tab/Tab";
 import StatsYear from "Components/Stats/StatsYear";
+import StatsMonth from "Components/Stats/StatsMonth";
 
 const styles = theme => ({
     formControl: {
@@ -25,12 +26,13 @@ class Stats extends React.Component {
         this.state = {
             datasYear: [],
             year: new Date().getFullYear(),
+            month: null,
             tabValue: 0
         };
     }
 
     componentDidMount() {
-        this.props.fetchStatsOfYear(this.state.year);
+        this.props.fetchStatsOfYear({year:this.state.year});
     }
 
     componentWillReceiveProps(nextProps) {
@@ -59,10 +61,9 @@ class Stats extends React.Component {
             return toast.error(`❌ ${nextProps.error}`);
     };
 
-    handleChangeDate = year => {
-        if (this.state.year !== year) { //avoid fetch if same year
-            this.props.fetchStatsOfYear(year);
-        }
+    handleChangeDate = (year, month = null) => {
+        if (this.state.year !== year || this.state.month !== month) //avoid fetch if same date
+            return this.props.fetchStatsOfYear({year, month});
     };
 
     handleTabChange = (event, tabValue) =>
@@ -70,7 +71,7 @@ class Stats extends React.Component {
 
     render() {
         const {classes} = this.props;
-        const {year, datasYear} = this.state;
+        const {year, datasYear, month} = this.state;
         return (
             <div className='container'>
                 <AppBar
@@ -87,13 +88,20 @@ class Stats extends React.Component {
                     </Tabs>
                 </AppBar>
                 {
-                    this.state.tabValue === 0 &&
-                    <StatsYear
-                        classes={classes}
-                        year={year}
-                        datasYear={datasYear}
-                        handleChangeDate={this.handleChangeDate}
-                    />
+                    this.state.tabValue === 0 ?
+                        <StatsYear
+                            classes={classes}
+                            year={year}
+                            datasYear={datasYear}
+                            handleChangeDate={this.handleChangeDate}
+                        /> :
+                        <StatsMonth
+                            classes={classes}
+                            year={year}
+                            month={month}
+                            datasYear={datasYear}
+                            handleChangeDate={this.handleChangeDate}
+                        />
                 }
             </div>
         );

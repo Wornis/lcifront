@@ -6,7 +6,7 @@ import {ofType} from 'redux-observable';
 import processResponse from 'Utils/processResponse';
 
 const api = {
-    fetchStatsOfYear: (year) => fetch(`${config.engine.host}/stats/year/${year}`)
+    fetchStatsOfYear: (year, month) => fetch(`${config.engine.host}/stats/year/${year}?month=${month}`)
         .then(response => processResponse(response))
         .then(value => ({value}))
         .catch(error => ({error}))
@@ -14,11 +14,11 @@ const api = {
 
 export const statsEpic = action$ => action$.pipe(
     ofType(STATS_FETCH),
-    mergeMap(({year}) =>
-        from(api.fetchStatsOfYear(year)).pipe(
+    mergeMap(({year, month}) =>
+        from(api.fetchStatsOfYear(year, month)).pipe(
             map(({error, value}) => {
                 if (error) throw error;
-                return {type: STATS_FETCH_SUCCESS, datasYear: value, year};
+                return {type: STATS_FETCH_SUCCESS, datasYear: value, year, month};
             }),
             catchError(error => of(error).pipe(
                 map((error) => ({type: STATS_FETCH_ERROR, error})),
@@ -28,4 +28,4 @@ export const statsEpic = action$ => action$.pipe(
     ),
 );
 
-export const fetchStatsOfYear = (year) => ({type: STATS_FETCH, year});
+export const fetchStatsOfYear = ({year, month}) => ({type: STATS_FETCH, year, month});
