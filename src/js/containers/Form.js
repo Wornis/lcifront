@@ -271,7 +271,7 @@ class Form extends React.Component {
                         </div>
                         {
                             this.props.isLoading ?
-                                <CircularProgress className={classes.progress} /> :
+                                <CircularProgress/> :
                                 <Button
                                     id='submit_form'
                                     type="button"

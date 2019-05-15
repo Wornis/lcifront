@@ -12,6 +12,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {arrMonths, arrYears} from "Constants/dates";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
     formControl: {
@@ -61,10 +62,10 @@ class Compta extends React.Component {
     }
 
     renderComptaSingle = () => {
-        const {recettes, totaux, classes} = this.props;
+        const {recettes, totaux, classes, isLoading} = this.props;
         return (
             <div style={{display: 'flex'}}>
-                <ComptaTable recettes={recettes}/>
+                <ComptaTable recettes={recettes} isLoading={isLoading}/>
                 <div style={{display: 'flex', flexDirection: 'column'}}>
                     <FormControl className={classes.formControl} style={{marginTop: 25}}>
                         <InputLabel htmlFor="select_month_compta">Mois :</InputLabel>
@@ -90,13 +91,13 @@ class Compta extends React.Component {
                         </Select>
                     </FormControl>
                 </div>
-                <ComptaTotalTable totaux={totaux}/>
+                <ComptaTotalTable totaux={totaux} isLoading/>
             </div>
         );
     };
 
     render() {
-        const {recettes, totaux, fetchComptaDatas} = this.props;
+        const {recettes, totaux, fetchComptaDatas, isLoading} = this.props;
         const {month, year} = this.state;
         return (this.state.showTabsPage || window.innerWidth < 1100)
             ? <ComptaTabs
@@ -105,6 +106,7 @@ class Compta extends React.Component {
                 month={month}
                 year={year}
                 fetchComptaDatas={fetchComptaDatas}
+                isLoading={isLoading}
             />
             : this.renderComptaSingle();
     }

@@ -42,7 +42,7 @@ const rowCells = ({libelle, esp, tr, cb, total, nbServices}) => (
 
 class ComptaTotalTable extends React.Component {
     render() {
-        const {classes} = this.props;
+        const {classes, isLoading} = this.props;
         const {emplacements, total} = this.props.totaux;
         return (
             <Paper className={classes.root}>
