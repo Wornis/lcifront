@@ -6,7 +6,7 @@ import {ofType} from 'redux-observable';
 import processResponse from 'Utils/processResponse';
 
 const api = {
-    fetchStatsOfYear: (year) => fetch(`${config.engine.host}/stats/year/${year}`)
+    fetchStatsOfYear: (year) => fetch(`${config.engine.host}/stats/year/${year}/ca`)
         .then(response => processResponse(response))
         .then(value => ({value}))
         .catch(error => ({error}))
