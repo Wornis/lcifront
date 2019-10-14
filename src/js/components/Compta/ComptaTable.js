@@ -68,7 +68,7 @@ class ComptaTable extends React.Component {
 
 ComptaTable.propTypes = {
     recettes: PropTypes.array.isRequired,
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ComptaTable);
