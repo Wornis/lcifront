@@ -69,7 +69,7 @@ const styles = theme => ({
         width: 200,
     },
     inputColor: {
-        color: 'red'
+        color: 'green'
     }
 });
 
