@@ -36,12 +36,11 @@ class Stats extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         this.triggerNeededToasts(nextProps);
         this.formatDatasYear(nextProps);
     }
 
-    formatDatasYear = (nextProps) => {  //Datas updated from redux
+    formatDatasYear = (nextProps) => { //Datas updated from redux
         const datasYear = arrMonths.map(month => ({month: month.substring(0, 4)}));
         nextProps.datasYear.forEach(({sumTotal, intMonth}) =>
             datasYear[intMonth - 1].sumTotal = parseInt(sumTotal));
@@ -64,7 +63,6 @@ class Stats extends React.Component {
     render() {
         const {classes} = this.props;
         const {year, datasYear, month} = this.state;
-        console.log(this.state)
         return (
             <div className='container'>
                 <AppBar
