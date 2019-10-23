@@ -1,15 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test Form component Renders correctly 1`] = `
-<main
-  className="Form-main-1"
->
-  <WithStyles(Paper)
-    className="Form-paper-2"
-  >
-    <WithStyles(Avatar)
-      className="Form-avatar-3"
-    >
+<main>
+  <WithStyles(Paper)>
+    <WithStyles(Avatar)>
       <pure(CreateIcon) />
     </WithStyles(Avatar)>
     <WithStyles(Typography)
@@ -20,7 +14,6 @@ exports[`Test Form component Renders correctly 1`] = `
     </WithStyles(Typography)>
     <form
       autoComplete="off"
-      className="Form-form-4"
     >
       <FormCalendar
         onChangeDate={[Function]}
@@ -40,9 +33,7 @@ exports[`Test Form component Renders correctly 1`] = `
             }
           }
         />
-        <WithStyles(FormControl)
-          className="Form-formControl-7"
-        >
+        <WithStyles(FormControl)>
           <WithStyles(WithFormControlContext(InputLabel))
             htmlFor="select-place"
           >
@@ -57,27 +48,14 @@ exports[`Test Form component Renders correctly 1`] = `
               }
             }
             onChange={[Function]}
-            value="none"
+            value=""
           >
             <WithStyles(MenuItem)
-              value="none"
+              value=""
             >
-              None
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              value={10}
-            >
-              Ten
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              value={20}
-            >
-              Twenty
-            </WithStyles(MenuItem)>
-            <WithStyles(MenuItem)
-              value={30}
-            >
-              Thirty
+              <em>
+                Choisissez un emplacement
+              </em>
             </WithStyles(MenuItem)>
           </WithStyles(WithFormControlContext(Select))>
         </WithStyles(FormControl)>
@@ -97,7 +75,6 @@ exports[`Test Form component Renders correctly 1`] = `
           }
         />
         <TextField
-          className="Form-textField-6"
           error={false}
           helperText=""
           id="espValue"
@@ -124,7 +101,6 @@ exports[`Test Form component Renders correctly 1`] = `
           }
         />
         <TextField
-          className="Form-textField-6"
           error={false}
           helperText=""
           id="trValue"
@@ -151,7 +127,6 @@ exports[`Test Form component Renders correctly 1`] = `
           }
         />
         <TextField
-          className="Form-textField-6"
           error={false}
           helperText=""
           id="cbValue"
@@ -181,11 +156,10 @@ exports[`Test Form component Renders correctly 1`] = `
           InputProps={
             Object {
               "classes": Object {
-                "input": "Form-inputColor-8",
+                "input": undefined,
               },
             }
           }
-          className="Form-textField-6"
           disabled={true}
           id="totalValue"
           label="Total"
@@ -196,7 +170,6 @@ exports[`Test Form component Renders correctly 1`] = `
         />
       </div>
       <WithStyles(Button)
-        className="Form-submit-5"
         color="primary"
         id="submit_form"
         onClick={[Function]}

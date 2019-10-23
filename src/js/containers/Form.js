@@ -82,7 +82,7 @@ const style = {
     }
 };
 
-const initialState = {
+export const initialState = {
     espValue: '',
     trValue: '',
     cbValue: '',
