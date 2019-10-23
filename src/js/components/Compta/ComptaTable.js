@@ -7,10 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import format from "date-fns/format";
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        width: '425px',
         marginTop: theme.spacing.unit * 3,
         overflowX: 'auto',
         margin: 'auto'
@@ -25,21 +26,9 @@ const style = {
     }
 };
 
-const createData = (name, calories, fat, carbs, protein) => {
-    return {name, calories, fat, carbs, protein};
-};
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 class ComptaTable extends React.Component {
     render() {
-        const {classes} = this.props;
+        const {classes, recettes} = this.props;
         return (
             <Paper className={classes.root}>
                 <Table padding={"none"}>
@@ -50,24 +39,24 @@ class ComptaTable extends React.Component {
                             <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>Tickets Restaurants</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>Cartes Bancaires</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Total</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Emplacement</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Mise à jour</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#DCEDFF'}}>Emplacement</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
+                        {recettes.map((data, index) => (
                             <TableRow key={index}>
                                 <TableCell
                                     component="th"
                                     scope="row"
-                                    style={{textAlign:'center'}}
+                                    style={{...style.cell, textAlign:'center'}}
                                 >
-                                    {row.name}
+                                    {format(new Date(data.laDate), 'dd/MM/yyyy')}
                                 </TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{row.calories}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{row.fat}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{row.carbs}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{row.protein}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{data.esp}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{data.tr}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{data.cb}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{data.total}</TableCell>
+                                <TableCell style={{...style.cell, backgroundColor: '#DCEDFF'}}>{data.libelle}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -78,7 +67,8 @@ class ComptaTable extends React.Component {
 }
 
 ComptaTable.propTypes = {
-    classes: PropTypes.object.isRequired,
+    recettes: PropTypes.array.isRequired,
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ComptaTable);

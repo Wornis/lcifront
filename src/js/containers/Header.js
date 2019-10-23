@@ -13,6 +13,10 @@ import {Link, withRouter} from 'react-router-dom';
 import menuItems from 'Constants/menuItems';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import {fetchEmplacements} from "Actions/emplacement";
+import {bindActionCreators} from "redux";
+import {connect} from 'react-redux';
+import {toast} from 'react-toastify';
 
 const drawerWidth = 220;
 
@@ -84,6 +88,15 @@ class Header extends React.Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.errorEmplacement)
+            return toast.error(`❌ ${nextProps.errorEmplacement}`);
+    }
+
+    componentDidMount() {
+        this.props.fetchEmplacements();
+    }
+
     getLabelFromPathname = (pathname) => {
         const menu = menuItems.find((menu) => menu.pathname === pathname);
         return (menu ? menu.label : null);
@@ -144,4 +157,11 @@ class Header extends React.Component {
     }
 }
 
-export default withRouter(withStyles(styles, {withTheme: true})(Header));
+const mapDispatchToProps = dispatch => bindActionCreators({fetchEmplacements}, dispatch);
+
+const mapStateToProps = state => ({errorEmplacement: state.emplacement.error});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withRouter(withStyles(styles, {withTheme: true})(Header)));

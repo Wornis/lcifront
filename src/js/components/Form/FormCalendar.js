@@ -12,6 +12,7 @@ const FormCalendar = props => {
         <div className="picker" style={{marginBottom: 15, width: 240}}>
             <AccessTimeIcon style={{marginTop: 20}} />
             <DatePicker
+                disabled={props.disabled}
                 id='formCalendarDatePicker'
                 label="Date"
                 value={props.selectedDate}

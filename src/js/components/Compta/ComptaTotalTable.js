@@ -10,36 +10,40 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
-        width: '90%',
+        width: '425px',
         marginTop: theme.spacing.unit * 3,
-        overflowX: 'auto',
         margin: 'auto'
     }
 });
-
 const style = {
     cell: {
-        textAlign:'center',
+        textAlign: 'center',
         fontWeight: 'bold',
         padding: '1px',
     }
 };
 
-const createData = (name, calories, fat, carbs, protein) => {
-    return {name, calories, fat, carbs, protein};
-};
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+const rowCells = ({libelle, esp, tr, cb, total, nbServices}) => (
+    <>
+        <TableCell
+            component="th"
+            scope="row"
+            style={{...style.cell, textAlign: 'center'}}
+        >
+            {libelle ? libelle : 'TOTAL'}
+        </TableCell>
+        <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{Math.round(esp * 100) / 100}</TableCell>
+        <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{Math.round(tr * 100) / 100}</TableCell>
+        <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{Math.round(cb * 100) / 100}</TableCell>
+        <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{Math.round(total * 100) / 100}</TableCell>
+        <TableCell style={{...style.cell, backgroundColor: '#6c757d47'}}>{nbServices}</TableCell>
+    </>
+);
 
 class ComptaTotalTable extends React.Component {
     render() {
-        const {classes} = this.props;
+        const {classes, isLoading} = this.props;
+        const {emplacements, total} = this.props.totaux;
         return (
             <Paper className={classes.root}>
                 <Table padding={"none"}>
@@ -50,25 +54,12 @@ class ComptaTotalTable extends React.Component {
                             <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>Tickets Restaurants</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>Cartes Bancaires</TableCell>
                             <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Total</TableCell>
-                            <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>Nb services</TableCell>
+                            <TableCell style={{...style.cell, backgroundColor: '#6c757d47'}}>Nb services</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row, index) => (
-                            <TableRow key={index}>
-                                <TableCell
-                                    component="th"
-                                    scope="row"
-                                    style={{textAlign:'center'}}
-                                >
-                                    {row.name}
-                                </TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#dff0d8'}}>{row.calories}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#fcf8e3'}}>{row.fat}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f2dede'}}>{row.carbs}</TableCell>
-                                <TableCell style={{...style.cell, backgroundColor: '#f5f5f5'}}>{row.protein}</TableCell>
-                            </TableRow>
-                        ))}
+                        <TableRow key={'totalMonth'} style={{border: 'outset'}}>{rowCells(total)}</TableRow>
+                        {emplacements.map((row, index) => <TableRow key={index}>{rowCells(row)}</TableRow>)}
                     </TableBody>
                 </Table>
             </Paper>
@@ -78,6 +69,7 @@ class ComptaTotalTable extends React.Component {
 
 ComptaTotalTable.propTypes = {
     classes: PropTypes.object.isRequired,
+    totaux: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(ComptaTotalTable);

@@ -1,26 +1,15 @@
 import React from 'react';
-import {createShallow} from '@material-ui/core/test-utils';
-import Form from 'Containers/Form';
+import { unwrap } from "@material-ui/core/test-utils";
+import {shallow} from 'enzyme'
+import Form, {initialState} from 'Containers/Form';
 import format from "date-fns/format";
 
 /* The dive()method returns the rendered non-DOM child of the current wrapper.
 That becomes useful if your component wraps another component in something like a div element,
 and what you're interested in testing is that inner component. */
-const getFormWrapper = () => createShallow()(<Form/>).dive();
-
-const initialState = {
-    espValue: '',
-    trValue: '',
-    cbValue: '',
-    totalValue: '',
-    dateValue: format(new Date(), 'yyyy-MM-dd'),
-    place: 'none',
-    submitted: false,
-    errors: {
-        espValue: false,
-        trValue: false,
-        cbValue: false
-    }
+const getFormWrapper = () => {
+    const ComponentNaked = unwrap(Form);
+    return shallow(<ComponentNaked emplacements={[]} classes={{}} />);
 };
 
 describe('Test Form component', () => {
@@ -74,8 +63,7 @@ describe('Test Form component', () => {
             espValue: '10.25',
             trValue: '10.25',
             cbValue: '10.25',
-            totalValue: '30.75',
-            submitted: true
+            totalValue: '30.75'
         };
         expect(wrapper.state()).toEqual(exceptedState);
     });

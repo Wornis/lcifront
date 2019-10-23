@@ -20,6 +20,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from 'Components/Form/FormCalendar';
 import format from 'date-fns/format';
 import isValid from 'date-fns/isValid';
+import {bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import {sendFormDatas} from "Actions/form";
+import {toast} from 'react-toastify';
 
 const styles = theme => ({
     main: {
@@ -65,7 +69,7 @@ const styles = theme => ({
         width: 200,
     },
     inputColor: {
-        color: 'red'
+        color: 'green'
     }
 });
 
@@ -78,24 +82,43 @@ const style = {
     }
 };
 
+export const initialState = {
+    espValue: '',
+    trValue: '',
+    cbValue: '',
+    totalValue: '',
+    dateValue: format(new Date(), 'yyyy-MM-dd'),
+    place: '',
+    errors: {
+        espValue: false,
+        trValue: false,
+        cbValue: false
+    }
+};
+
 class Form extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            espValue: '',
-            trValue: '',
-            cbValue: '',
-            totalValue: '',
-            dateValue: format(new Date(), 'yyyy-MM-dd'),
-            place: 'none',
-            submitted: false,
-            errors: {
-                espValue: false,
-                trValue: false,
-                cbValue: false
-            }
-        };
+        this.state = {...initialState};
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.triggerNeededToasts(nextProps);
+        this.cleanForm(nextProps);
+    }
+
+    triggerNeededToasts = (nextProps) => {
+        if (nextProps.datasInserted)
+            return toast.success('🚀 Données ajoutées.');
+        if (nextProps.datasInserted === false)
+            return toast.error(`❌ ${nextProps.error}`);
+    };
+
+    cleanForm = (nextProps) => {
+        if (nextProps.datasInserted) {
+            return this.setState(initialState);
+        }
+    };
 
     checkIfErrOnMoneyFields = () => {
         const keys = ['espValue', 'trValue', 'cbValue'];
@@ -113,7 +136,9 @@ class Form extends React.Component {
     handleSubmit = () => {
         const boolErrMoneys = this.checkIfErrOnMoneyFields();
         if (!boolErrMoneys && this.state.place && isValid(new Date(this.state.dateValue))) {
-            return this.setState({submitted: true});
+            const {espValue, trValue, cbValue, dateValue, place} = this.state;
+            const datas = {espValue, trValue, cbValue, dateValue, place};
+            this.props.sendFormDatas(datas);
         }
     };
 
@@ -171,12 +196,13 @@ class Form extends React.Component {
                     </Typography>
                     <form className={classes.form} autoComplete='off'>
                         <FormCalendar
+                            disabled={this.props.isLoading}
                             selectedDate={this.state.dateValue}
                             onChangeDate={this.onChangeDate.bind(this)}
                         />
                         <div style={{marginBottom: 20}}>
                             <MyLocationIcon style={{marginTop: 30}}/>
-                            <FormControl className={classes.formControl}>
+                            <FormControl className={classes.formControl} disabled={this.props.isLoading}>
                                 <InputLabel htmlFor="select-place">Emplacement</InputLabel>
                                 <Select
                                     id='select_form'
@@ -184,10 +210,12 @@ class Form extends React.Component {
                                     inputProps={{name: 'place', id: 'select-place'}}
                                     onChange={(e) => this.setState({place: e.target.value})}
                                 >
-                                    <MenuItem value='none'>None</MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value=''><em>Choisissez un emplacement</em></MenuItem>
+                                    {
+                                        this.props.emplacements.map(place =>
+                                            <MenuItem key={place.id} value={place.id}>{place.libelle}</MenuItem>
+                                        )
+                                    }
                                 </Select>
                             </FormControl>
                         </div>
@@ -201,6 +229,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.espValue}
                                 helperText={this.getHelperText(this.state.errors.espValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>
@@ -213,6 +242,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.trValue}
                                 helperText={this.getHelperText(this.state.errors.trValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>
@@ -225,6 +255,7 @@ class Form extends React.Component {
                                 onChange={this.onChangeValue.bind(this)}
                                 error={this.state.errors.cbValue}
                                 helperText={this.getHelperText(this.state.errors.cbValue)}
+                                disabled={this.props.isLoading}
                             />
                         </div>
                         <div style={style.divTextField}>
@@ -239,8 +270,8 @@ class Form extends React.Component {
                             />
                         </div>
                         {
-                            this.state.submitted ?
-                                <CircularProgress className={classes.progress} /> :
+                            this.props.isLoading ?
+                                <CircularProgress/> :
                                 <Button
                                     id='submit_form'
                                     type="button"
@@ -260,7 +291,14 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Form);
+const mapStateToProps = state => ({
+    ...state.form,
+    emplacements: state.emplacement.emplacements
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));
