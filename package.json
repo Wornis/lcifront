@@ -75,7 +75,8 @@
       "^Reducers(.*)$": "<rootDir>/src/js/reducers/$1",
       "^Redux(.*)$": "<rootDir>/src/js/redux/$1",
       "^Utils(.*)$": "<rootDir>/src/js/utils/$1",
-      "Config": "<rootDir>/config_development.json"
+      "Config": "<rootDir>/config_development.json",
+      "Services": "<rootDir>/src/js/services/$1"
     }
   }
 }

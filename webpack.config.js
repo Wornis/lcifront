@@ -57,6 +57,7 @@ module.exports = {
             Reducers: resolve(__dirname, 'src/js/reducers'),
             Redux: resolve(__dirname, 'src/js/redux'),
             Utils: resolve(__dirname, 'src/js/utils'),
+            Services: resolve(__dirname, 'src/js/services'),
         }
     },
     devServer: {

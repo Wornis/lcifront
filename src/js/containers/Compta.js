@@ -12,7 +12,6 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {arrMonths, arrYears} from "Constants/dates";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const styles = theme => ({
     formControl: {
