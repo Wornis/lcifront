@@ -6,5 +6,11 @@ export default {
   },
   compta: {
       get: ({month, year}) => new ApiRequest(`compta/${month}&${year}`).fetch()
+  },
+  emplacement: {
+      get: () => new ApiRequest('emplacement').fetch()
+  },
+  stats: {
+      get: ({year, month}) => new ApiRequest(`stats/year/${year}/ca?month=${month}`).fetch()
   }
 };
