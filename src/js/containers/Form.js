@@ -187,7 +187,6 @@ class Form extends React.Component {
     errorValue ? 'La valeur saisie est incorrecte' : '';
 
   componentDidMount() {
-    console.log(this.props.emplacements.length)
     if (!this.props.emplacements.length) {
       this.props.fetchEmplacements();
     }
