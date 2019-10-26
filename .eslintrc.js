@@ -178,7 +178,7 @@ module.exports = {
     'func-style': 0,                  // enforces use of function declarations or expressions (off by default)
     'indent': [                       // this option sets a specific tab width for your code (off by default)
       'error',
-      4,
+      2,
       {'SwitchCase': 1}
     ],
     'key-spacing': 0,                 // enforces spacing between keys and values in object literal properties
