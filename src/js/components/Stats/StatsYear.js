@@ -34,7 +34,6 @@ const getDomains = (datasYear) => {
 const StatsYear = (props) => {
   const {classes, year, datasYear, handleChangeDate} = props;
   const {totalYear, servicesYear} = getDomains(datasYear);
-  console.log(totalYear, servicesYear);
   return (
     <div className='container'>
       <FormControl className={classes.formControl} style={{marginTop: 25}}>
