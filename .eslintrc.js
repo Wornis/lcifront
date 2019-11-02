@@ -197,7 +197,7 @@ module.exports = {
       2,
       {'max': 2}
     ],
-    'no-nested-ternary': 2,           // disallow nested ternary expressions (off by default)
+    'no-nested-ternary': 0,           // disallow nested ternary expressions (off by default)
     'no-new-object': 2,               // disallow use of the Object constructor
     'no-spaced-func': 2,              // disallow space between function identifier and application
     'no-ternary': 0,                  // disallow the use of ternary operators (off by default)

@@ -3,6 +3,7 @@ import '../../assets/css/Calendar.css';
 import CalendarHeader from "Components/Calendar/CalendarHeader";
 import frLocale from 'date-fns/locale/fr';
 import CalendarDays from "Components/Calendar/CalendarDays";
+import CalendarCells from "Components/Calendar/CalendarCells";
 
 export default class Calendar extends React.Component {
   constructor(props) {
@@ -24,6 +25,10 @@ export default class Calendar extends React.Component {
           <CalendarDays
             currentMonth={this.state.currentMonth}
             dateLocale={this.dateLocale}/>
+          <CalendarCells
+            currentMonth={this.state.currentMonth}
+            dateLocale={this.dateLocale}
+          />
         </div>
       </div>
 
