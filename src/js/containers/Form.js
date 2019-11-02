@@ -82,7 +82,7 @@ const style = {
     marginBottom: 30
   }
 };
-//TODO fix ERRORS from api engine
+
 export const initialState = {
   espValue: '',
   trValue: '',
@@ -214,17 +214,14 @@ class Form extends React.Component {
               <FormControl className={classes.formControl} disabled={this.props.isLoading}>
                 <InputLabel htmlFor="select-place">Emplacement</InputLabel>
                 <Select
+                  native
                   id='select_form'
                   value={this.state.place}
                   inputProps={{name: 'place', id: 'select-place'}}
                   onChange={(e) => this.setState({place: e.target.value})}
                 >
-                  <MenuItem value=''><em>Choisissez un emplacement</em></MenuItem>
-                  {
-                    this.props.emplacements.map(place =>
-                      <MenuItem key={place.id} value={place.id}>{place.libelle}</MenuItem>
-                    )
-                  }
+                  <option/>
+                  {this.props.emplacements.map(({id, libelle}) => <option key={id} value={id}>{libelle}</option>)}
                 </Select>
               </FormControl>
             </div>

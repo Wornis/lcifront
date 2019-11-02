@@ -1,17 +1,14 @@
 import React from "react";
-import { ToastContainer } from 'react-toastify';
-
+import {connect} from 'react-redux';
 
 class ModalNouveau extends React.Component {
-  constructor(props) {
-    super(props);
-    this.dayEvents = [];
-  }
-
   submitModal = (e) => {
     e.preventDefault();
     this.props.closeModal();
   };
+
+  getEmplacements = () =>
+    this.props.emplacements.map(({id, libelle}) => <option key={id} value={id}>{libelle}</option>);
 
   render() {
     return (
@@ -22,6 +19,7 @@ class ModalNouveau extends React.Component {
             id="select-event"
             className="form-control"
           >
+            {this.getEmplacements()}
           </select>
         </div>
 
@@ -34,19 +32,12 @@ class ModalNouveau extends React.Component {
           </select>
         </div>
         <input type='submit' className="btn btn-primary" onClick={e => this.submitModal(e)}/>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnVisibilityChange
-          draggable
-          pauseOnHover={false}/>
       </form>
     );
   }
 }
 
-export default ModalNouveau;
+const mapStateToProps = state => ({...state.emplacement});
+
+export default connect(mapStateToProps)(ModalNouveau);
+

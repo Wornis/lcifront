@@ -2,9 +2,9 @@ import React from "react";
 import './ModalCalendar.css';
 import Modal from 'react-modal';
 import {format} from "date-fns";
-import ModalNouveau from "./ModalNouveau/ModalNouveau";
-import ModalSupprimer from "./ModalSupprimer/ModalSupprimer";
-import ModalVisualiser from "./ModalVisualiser/ModalVisualiser";
+import ModalNouveau from "./ModalNouveau";
+import ModalSupprimer from "./ModalSupprimer";
+import ModalVisualiser from "./ModalVisualiser";
 
 const customStyles = {
   content: {
@@ -22,26 +22,18 @@ const customStyles = {
 export default class ModalCalendar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {renderContent: 'nouveau'};
+    this.state = {renderContent: ModalNouveau};
   }
 
-  getRenderContent() {
-    if (this.state.renderContent === 'nouveau')
-      return <ModalNouveau
-        selectedDate={this.props.selectedDate}
-        closeModal={this.props.closeModal}
-      />;
-    else if (this.state.renderContent === 'supprimer')
-      return <ModalSupprimer
-        selectedDate={this.props.selectedDate}
-        closeModal={this.props.closeModal}
-      />;
-    else return <ModalVisualiser/>;
+  getSelectedContent() {
+    const Component = this.state.renderContent;
+    return <Component
+      selectedDate={this.props.selectedDate}
+      closeModal={this.props.closeModal}
+    />;
   }
 
-  getActive(strCategorie) {
-    return this.state.renderContent === strCategorie ? 'active' : '';
-  }
+  getActive = component => this.state.renderContent === component ? 'active' : '';
 
   render() {
     const dateFormat = "EEEE dd MMMM yyyy";
@@ -58,20 +50,23 @@ export default class ModalCalendar extends React.Component {
         >
           <div className='modal-container'>
             <p>{formattedDate}</p>
-            {this.getRenderContent()}
+            {this.getSelectedContent()}
           </div>
 
           <div className="navbar-calendar">
-            <a onClick={() => this.setState({renderContent: 'nouveau'})}
-              className={this.getActive('nouveau')}>
+            <a
+              onClick={() => this.setState({renderContent: ModalNouveau})}
+              className={this.getActive(ModalNouveau)}>
               Nouveau
             </a>
-            <a onClick={() => this.setState({renderContent: 'supprimer'})}
-              className={this.getActive('supprimer')}>
+            <a
+              onClick={() => this.setState({renderContent: ModalSupprimer})}
+              className={this.getActive(ModalSupprimer)}>
               Supprimer
             </a>
-            <a onClick={() => this.setState({renderContent: 'visualiser'})}
-              className={this.getActive('visualiser')}>
+            <a
+              onClick={() => this.setState({renderContent: ModalVisualiser})}
+              className={this.getActive(ModalVisualiser)}>
               Visualiser
             </a>
           </div>
