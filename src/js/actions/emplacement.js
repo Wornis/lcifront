@@ -21,5 +21,3 @@ export const emplacementEpic = action$ => action$.pipe(
     )
   ),
 );
-
-export const fetchEmplacements = () => ({type: EMPLACEMENT_FETCH});

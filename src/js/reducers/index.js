@@ -8,17 +8,21 @@ import {comptaEpic} from 'Actions/compta';
 import compta from 'Reducers/compta';
 import stats from "Reducers/stats";
 import {statsEpic} from "Actions/stats";
+import calendar from "Reducers/calendar";
+import {CalendarAddEventEpic} from "Actions/calendar";
 
 export const rootReducer = combineReducers({
-    form,
-    emplacement,
-    compta,
-    stats
+  form,
+  emplacement,
+  compta,
+  stats,
+  calendar
 });
 
 export const rootEpic = combineEpics(
-    formSubmitEpic,
-    emplacementEpic,
-    comptaEpic,
-    statsEpic
+  formSubmitEpic,
+  emplacementEpic,
+  comptaEpic,
+  statsEpic,
+  CalendarAddEventEpic
 );

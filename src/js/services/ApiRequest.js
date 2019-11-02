@@ -29,6 +29,6 @@ export default class ApiRequest {
     return fetch(this.route, this.options)
       .then(response => processResponse(response))
       .then(datas => ({datas}))
-      .catch(error => ({error}))
+      .catch(error => ({error}));
   }
-}
+};

@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import FormCalendar from 'Components/Form/FormCalendar';
 import format from 'date-fns/format';
@@ -24,7 +23,6 @@ import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {sendFormDatas} from "Actions/form";
 import {toast} from 'react-toastify';
-import {fetchEmplacements} from "Actions/emplacement";
 
 const styles = theme => ({
   main: {
@@ -186,12 +184,6 @@ class Form extends React.Component {
   getHelperText = (errorValue) =>
     errorValue ? 'La valeur saisie est incorrecte' : '';
 
-  componentDidMount() {
-    if (!this.props.emplacements.length) {
-      this.props.fetchEmplacements();
-    }
-  }
-
   render() {
     const {classes} = this.props;
     return (
@@ -306,6 +298,6 @@ const mapStateToProps = state => ({
   errorEmplacement: state.emplacement.error
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas, fetchEmplacements}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({sendFormDatas}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Form));

@@ -5,6 +5,7 @@ import {format} from "date-fns";
 import ModalNouveau from "./ModalNouveau";
 import ModalSupprimer from "./ModalSupprimer";
 import ModalVisualiser from "./ModalVisualiser";
+import {connect} from "react-redux";
 
 const customStyles = {
   content: {
@@ -19,7 +20,7 @@ const customStyles = {
   }
 };
 
-export default class ModalCalendar extends React.Component {
+class ModalCalendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {renderContent: ModalNouveau};
@@ -30,6 +31,7 @@ export default class ModalCalendar extends React.Component {
     return <Component
       selectedDate={this.props.selectedDate}
       closeModal={this.props.closeModal}
+      emplacements={this.props.emplacements}
     />;
   }
 
@@ -56,17 +58,20 @@ export default class ModalCalendar extends React.Component {
           <div className="navbar-calendar">
             <a
               onClick={() => this.setState({renderContent: ModalNouveau})}
-              className={this.getActive(ModalNouveau)}>
+              className={this.getActive(ModalNouveau)}
+            >
               Nouveau
             </a>
             <a
               onClick={() => this.setState({renderContent: ModalSupprimer})}
-              className={this.getActive(ModalSupprimer)}>
+              className={this.getActive(ModalSupprimer)}
+            >
               Supprimer
             </a>
             <a
               onClick={() => this.setState({renderContent: ModalVisualiser})}
-              className={this.getActive(ModalVisualiser)}>
+              className={this.getActive(ModalVisualiser)}
+            >
               Visualiser
             </a>
           </div>
@@ -76,5 +81,8 @@ export default class ModalCalendar extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({...state.emplacement});
+
+export default connect(mapStateToProps)(ModalCalendar);
 
 Modal.setAppElement('#root');
