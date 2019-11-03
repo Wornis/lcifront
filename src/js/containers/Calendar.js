@@ -4,29 +4,41 @@ import CalendarHeader from "Components/Calendar/CalendarHeader";
 import frLocale from 'date-fns/locale/fr';
 import CalendarDays from "Components/Calendar/CalendarDays";
 import CalendarCells from "Components/Calendar/CalendarCells";
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {getEvents} from "Actions/calendar";
+import {getMonth, getYear} from 'date-fns';
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {currentMonth: new Date()};
+    this.state = {selectedDate: new Date()};
     this.dateLocale = {locale: frLocale};
   }
 
-  onChangeMonth = (newMonth) => this.setState({currentMonth: newMonth});
+  getEventsOfYear = (date) => this.props.getEvents(getYear(date));
+
+  componentDidMount = () => this.getEventsOfYear(this.state.selectedDate);
+
+  onChangeMonth = (selectedDate) => {
+    if (!this.props.events[getYear(selectedDate)])
+      this.getEventsOfYear(selectedDate);
+    return this.setState({selectedDate});
+  };
 
   render() {
     return (
       <div>
         <div className="calendar">
           <CalendarHeader
-            currentMonth={this.state.currentMonth}
+            selectedDate={this.state.selectedDate}
             dateLocale={this.dateLocale}
             onChangeMonth={this.onChangeMonth}/>
           <CalendarDays
-            currentMonth={this.state.currentMonth}
+            selectedDate={this.state.selectedDate}
             dateLocale={this.dateLocale}/>
           <CalendarCells
-            currentMonth={this.state.currentMonth}
+            selectedDate={this.state.selectedDate}
             dateLocale={this.dateLocale}
           />
         </div>
@@ -35,3 +47,7 @@ export default class Calendar extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({events: state.calendar.events});
+const mapDispatchToProps = dispatch => bindActionCreators({getEvents}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

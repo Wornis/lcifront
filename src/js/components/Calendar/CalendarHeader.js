@@ -1,14 +1,14 @@
 import React from "react";
 import {format, addMonths, subMonths} from 'date-fns';
 
-const CalendarHeader = ({currentMonth, dateLocale, onChangeMonth}) => {
+const CalendarHeader = ({selectedDate, dateLocale, onChangeMonth}) => {
   const nextMonth = () => {
-    const nextMonth = addMonths(currentMonth, 1);
+    const nextMonth = addMonths(selectedDate, 1);
     onChangeMonth(nextMonth);
   };
 
   const prevMonth = () => {
-    const prevMonth = subMonths(currentMonth, 1);
+    const prevMonth = subMonths(selectedDate, 1);
     onChangeMonth(prevMonth);
   };
 
@@ -21,7 +21,7 @@ const CalendarHeader = ({currentMonth, dateLocale, onChangeMonth}) => {
         </div>
       </div>
       <div className="col col-center">
-        <span>{format(currentMonth, dateFormat, dateLocale)}</span>
+        <span>{format(selectedDate, dateFormat, dateLocale)}</span>
       </div>
       <div className="col col-end" onClick={nextMonth}>
         <div className="icon">&gt;&gt;&gt;&gt;&gt;</div>

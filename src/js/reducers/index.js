@@ -9,7 +9,7 @@ import compta from 'Reducers/compta';
 import stats from "Reducers/stats";
 import {statsEpic} from "Actions/stats";
 import calendar from "Reducers/calendar";
-import {CalendarAddEventEpic} from "Actions/calendar";
+import {CalendarAddEventEpic, CalendarGetEventsEpic} from "Actions/calendar";
 import toast from "Reducers/toast";
 import {cleanToastEpic} from "Actions/toast";
 
@@ -28,5 +28,6 @@ export const rootEpic = combineEpics(
   comptaEpic,
   statsEpic,
   CalendarAddEventEpic,
-  cleanToastEpic
+  cleanToastEpic,
+  CalendarGetEventsEpic
 );

@@ -4,11 +4,11 @@ import {startOfWeek, format, addDays} from "date-fns";
 /**
  * @return {*} Return date libelle of the weeks
  */
-export const CalendarDays = ({currentMonth, dateLocale}) => {
+export const CalendarDays = ({selectedDate, dateLocale}) => {
   const dateFormat = "EEEE";
   const days = [];
 
-  let startDate = startOfWeek(currentMonth, {weekStartsOn: 1});
+  let startDate = startOfWeek(selectedDate, {weekStartsOn: 1});
   for (let i = 0; i < 7; i++) {
     days.push(
       <div className="col col-center" key={i}>

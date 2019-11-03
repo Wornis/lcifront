@@ -1,11 +1,11 @@
 import React from "react";
 import {
   endOfMonth, endOfWeek, startOfMonth, startOfWeek,
-  isSameDay, format, isSameMonth, addDays
+  isSameDay, format, isSameMonth, addDays,
 } from "date-fns";
 import ModalCalendar from "Components/Calendar/ModalCalendar/ModalCalendar";
 
-class CalendarCells extends React.Component {
+export default class CalendarCells extends React.Component {
   constructor(props) {
     super(props);
     this.state = {selectedDate: undefined, modalIsOpen: false};
@@ -15,9 +15,50 @@ class CalendarCells extends React.Component {
 
   closeModal = () => this.setState({modalIsOpen: false, selectedDate: undefined});
 
+  getDayContent = (day) => {
+    if (this.props.events) {
+      const dayEvents = this.props.events.filter(event => isSameDay(event.date, day));
+      const midiEvents = dayEvents.filter(event => event.service === 'midi');
+      const soirEvents = dayEvents.filter(event => event.service === 'soir');
+      return (
+        <div className='cell-content' style={{marginLeft: 2}}>
+          <div className='calendar-cell-matin'>
+            {
+              midiEvents.map((event, index) => {
+                return (
+                  <div
+                    style={{background: event.color}}
+                    key={index}
+                  >
+                    {event.libelle}
+                  </div>
+                );
+              })
+            }
+          </div>
+          <div>
+            {
+              soirEvents.map((event, index) => {
+                return (
+                  <div
+                    style={{background: event.color}}
+                    key={index}
+                  >
+                    {event.libelle}
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
   render() {
-    const {currentMonth, selectedDate, dateLocale} = this.props;
-    const monthStart = startOfMonth(currentMonth);
+    const {selectedDate, dateLocale} = this.props;
+    const monthStart = startOfMonth(selectedDate);
     const monthEnd = endOfMonth(monthStart);
     const startDate = startOfWeek(monthStart, {weekStartsOn: 1});
     const endDate = endOfWeek(monthEnd, {weekStartsOn: 1});
@@ -38,11 +79,12 @@ class CalendarCells extends React.Component {
             className={`col cell ${
               !isSameMonth(day, monthStart)
                 ? "disabled"
-                : isSameDay(day, selectedDate) ? "selected" : ""
+                : isSameDay(day, new Date()) ? "selected" : ""
             }`}
             key={day}
             onClick={() => this.openModal(cloneDay)}
           >
+            {this.getDayContent(day)}
             <span className="number">{formattedDateDay}</span>
             <span className="bg">{formattedDateDay}</span>
           </div>
@@ -61,10 +103,6 @@ class CalendarCells extends React.Component {
           dateLocale={this.props.dateLocale}
         />
       </div>
-
     );
   }
 }
-
-
-export default CalendarCells;
