@@ -12,5 +12,8 @@ export default {
   },
   stats: {
     get: ({year, month}) => new ApiRequest(`stats/year/${year}/ca?month=${month}`).fetch()
+  },
+  calendar: {
+    post: (body) => new ApiRequest('calendar/add', {method: 'POST', body}).fetch()
   }
 };

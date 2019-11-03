@@ -1,7 +1,7 @@
 import React from "react";
 import './ModalCalendar.css';
 import Modal from 'react-modal';
-import {format} from "date-fns";
+import {format, parse} from "date-fns";
 import ModalNouveau from "./ModalNouveau";
 import ModalSupprimer from "./ModalSupprimer";
 import ModalVisualiser from "./ModalVisualiser";
@@ -26,14 +26,17 @@ class ModalCalendar extends React.Component {
     this.state = {renderContent: ModalNouveau};
   }
 
-  getSelectedContent() {
+  getSelectedContent = () => {
+    const selectedDate = this.props.selectedDate
+      ? format(this.props.selectedDate, 'yyyy-MM-dd')
+      : null;
     const Component = this.state.renderContent;
     return <Component
-      selectedDate={this.props.selectedDate}
+      selectedDate={selectedDate}
       closeModal={this.props.closeModal}
       emplacements={this.props.emplacements}
     />;
-  }
+  };
 
   getActive = component => this.state.renderContent === component ? 'active' : '';
 

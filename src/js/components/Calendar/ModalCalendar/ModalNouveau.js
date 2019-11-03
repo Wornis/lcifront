@@ -6,11 +6,17 @@ import {addNewEvent} from "Actions/calendar";
 class ModalNouveau extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {service: 'midi'};
+    this.state = {place: props.emplacements[0].id, service: 'midi'};
   }
 
   submitModal = (e) => {
     e.preventDefault();
+    const datas = {
+      date: this.props.selectedDate,
+      service: this.state.service,
+      idPlace: this.state.place
+    };
+    this.props.addNewEvent(datas);
     this.props.closeModal();
   };
 

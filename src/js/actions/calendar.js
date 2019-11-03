@@ -9,7 +9,7 @@ import {
 export const CalendarAddEventEpic = action$ => action$.pipe(
   ofType(CALENDAR_ADD_EVENT),
   mergeMap(action =>
-    from(api.form.post(action.datas)).pipe(
+    from(api.calendar.post(action.datas)).pipe(
       map(({error}) => {
         if (error) throw error;
         return ({type: CALENDAR_ADD_EVENT_SUCCESS});
