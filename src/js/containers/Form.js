@@ -22,7 +22,6 @@ import isValid from 'date-fns/isValid';
 import {bindActionCreators} from 'redux';
 import { connect } from 'react-redux';
 import {sendFormDatas} from "Actions/form";
-import {toast} from 'react-toastify';
 
 const styles = theme => ({
   main: {
@@ -102,16 +101,8 @@ class Form extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.triggerNeededToasts(nextProps);
     this.cleanForm(nextProps);
   }
-
-  triggerNeededToasts = (nextProps) => {
-    if (nextProps.datasInserted)
-      return toast.success('🚀 Données ajoutées.');
-    if (nextProps.datasInserted === false)
-      return toast.error(`❌ ${nextProps.error}`);
-  };
 
   cleanForm = (nextProps) => {
     if (nextProps.datasInserted) {

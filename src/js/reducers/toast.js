@@ -1,4 +1,4 @@
-import {TOAST_SUCCESS, TOAST_ERROR} from "Constants/ActionTypes";
+import {TOAST_SUCCESS, TOAST_ERROR, TOAST_CLEAN} from "Constants/ActionTypes";
 
 const initialState = {success: null, error: null};
 
@@ -14,6 +14,8 @@ const toastReducer = (state = initialState, action) => {
         ...state,
         error: action.msg
       };
+    case TOAST_CLEAN:
+      return {...initialState};
     default:
       return state;
   }

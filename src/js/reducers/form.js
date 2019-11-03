@@ -15,9 +15,7 @@ const formReducer = (state = initialState, action) => {
       };
     case FORM_SUBMIT_ERROR:
       return {
-        isLoading: false,
-        datasInserted: false,
-        error: action.error
+        isLoading: false
       };
     case FORM_INIT:
       return {...initialState};

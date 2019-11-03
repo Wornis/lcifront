@@ -5,10 +5,8 @@ import {catchError} from "rxjs/operators/index";
 import {of} from "rxjs/index";
 import api from 'Services/ApiService';
 import {
-  FORM_SUBMIT,
-  FORM_SUBMIT_SUCCESS,
-  FORM_INIT,
-  FORM_SUBMIT_ERROR
+  FORM_SUBMIT, FORM_SUBMIT_SUCCESS, FORM_INIT,
+  FORM_SUBMIT_ERROR, TOAST_SUCCESS, TOAST_ERROR
 } from 'Constants/ActionTypes';
 
 export const formSubmitEpic = action$ => action$.pipe(
@@ -19,9 +17,10 @@ export const formSubmitEpic = action$ => action$.pipe(
         if (error) throw error;
         return ({type: FORM_SUBMIT_SUCCESS});
       }),
-      map(action => action),
+      endWith(({type: TOAST_SUCCESS, msg: '🚀 Données ajoutées.'})),
       catchError(error => of(error).pipe(
         map((error) => ({type: FORM_SUBMIT_ERROR, error})),
+        map(({error}) => ({type: TOAST_ERROR, msg: `❌ ${error}`}))
       )),
       endWith(({type: FORM_INIT}))
     )
