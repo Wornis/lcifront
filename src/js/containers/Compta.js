@@ -21,8 +21,8 @@ const styles = theme => ({
 });
 
 class Compta extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     const now = new Date();
     this.state = {
       showTabsPage: false,

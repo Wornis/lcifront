@@ -3,7 +3,7 @@ import {mergeMap, map, catchError} from 'rxjs/operators';
 import {ofType} from 'redux-observable';
 import api from 'Services/ApiService';
 import {
-  CALENDAR_ADD_EVENT, CALENDAR_ADD_EVENT_ERROR, CALENDAR_ADD_EVENT_SUCCESS
+  CALENDAR_ADD_EVENT, CALENDAR_ADD_EVENT_SUCCESS, TOAST_ERROR
 } from 'Constants/ActionTypes';
 
 export const CalendarAddEventEpic = action$ => action$.pipe(
@@ -16,7 +16,7 @@ export const CalendarAddEventEpic = action$ => action$.pipe(
       }),
       map(action => action),
       catchError(error => of(error).pipe(
-        map((error) => ({type: CALENDAR_ADD_EVENT_ERROR, error})),
+        map((error) => ({type: TOAST_ERROR, msg:error}))
       ))
     )
   ),

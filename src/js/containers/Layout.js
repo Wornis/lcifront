@@ -3,6 +3,7 @@ import Header from './Header';
 import DevTools from 'Redux/DevTools';
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import ToastHandler from "Containers/ToastHandler";
 
 const Layout = (props) => {
   return (
@@ -20,6 +21,7 @@ const Layout = (props) => {
         pauseOnVisibilityChange
         draggable
         pauseOnHover={false}/>
+      <ToastHandler/>
     </div>
   );
 };

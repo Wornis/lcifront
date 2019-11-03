@@ -10,13 +10,15 @@ import stats from "Reducers/stats";
 import {statsEpic} from "Actions/stats";
 import calendar from "Reducers/calendar";
 import {CalendarAddEventEpic} from "Actions/calendar";
+import toast from "Reducers/toast";
 
 export const rootReducer = combineReducers({
   form,
   emplacement,
   compta,
   stats,
-  calendar
+  calendar,
+  toast
 });
 
 export const rootEpic = combineEpics(
